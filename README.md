@@ -1,3 +1,7 @@
+<p align="center">
+ <img alt="logo" src="https://github.com/LeChat76/Projet10OC/assets/119883313/04f12c19-e382-4759-8417-11a0efa89232">
+</p>
+
 # Projet10OC
 API creation with __Django Rest Framework__
 
