@@ -17,6 +17,7 @@ class Project(models.Model):
         on_delete=models.CASCADE,
         related_name='Project_contributor',
     )
+    created_time = models.DateTimeField(auto_now_add=True)
 
 
 class Contributor(models.Model):
@@ -62,6 +63,7 @@ class Issue(models.Model):
         ('finished', 'Finished'),
     )
     statut = models.CharField(default='todo', max_length=11, choices=TYPES_STATUT)
+    created_time = models.DateTimeField(auto_now_add=True)
 
 class Comment(models.Model):
     description = models.CharField(max_length=500)
@@ -75,4 +77,5 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
         related_name='Comment_issue',
     )
+    created_time = models.DateTimeField(auto_now_add=True)
 
