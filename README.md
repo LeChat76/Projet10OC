@@ -18,4 +18,4 @@ Create virtual environment :
     * for Windows ".\.venv\Scripts\activate"
 Install the necessary libraries by typing : "pip install -r requirements.txt"
 Go in the folder of the projet : "cd project"
-And run the webserver : python manage.py runserver"
+And run the webserver : "python manage.py runserver"
