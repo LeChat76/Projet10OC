@@ -16,14 +16,13 @@ class Project(models.Model):
     )
     type = models.CharField(max_length=10, choices=TYPES_PROJECT)
     title = models.CharField(max_length=100)
-    description = models.CharField(max_length=500)
+    description = models.CharField(max_length=500, blank=True)
     project_contributor = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='Project_contributor',
     )
     created_time = models.DateTimeField(editable=False, auto_now_add=True)
-
 
 class Contributor(models.Model):
 
@@ -66,7 +65,7 @@ class Issue(models.Model):
     )
     priority = models.CharField(max_length=6, choices=TYPES_PRIORITY)
     title = models.CharField(max_length=100)
-    description = models.CharField(max_length=500)
+    description = models.CharField(max_length=500, blank=True)
     TYPES_TYPE = (
         ('bug', 'Bug'),
         ('feature', 'Feature'),
