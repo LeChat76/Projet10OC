@@ -4,6 +4,10 @@ from django.utils import timezone
 
 
 class Project(models.Model):
+
+    def __str__(self):
+        return f'{self.title}'
+
     TYPES_PROJECT = (
         ('backend', 'Back-end'),
         ('frontend', 'Front-end'),
@@ -22,6 +26,10 @@ class Project(models.Model):
 
 
 class Contributor(models.Model):
+
+    def __str__(self):
+        return f'{self.contributor_user}'
+    
     contributor_user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -32,8 +40,15 @@ class Contributor(models.Model):
         on_delete=models.CASCADE,
         related_name='Contributor_project',
     )
+    
+    # class Meta:
+    #     unique_together = ('contributor_user', 'contributor_project')
 
 class Issue(models.Model):
+
+    def __str__(self):
+        return f'{self.issue_project}'
+    
     issue_project = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,

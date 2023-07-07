@@ -1,3 +1,13 @@
 from django.contrib import admin
 
-# Register your models here.
+from authentication.models import Users
+
+class UserAdmin(admin.ModelAdmin):
+    list_display = (
+        'username',
+        'birthday',
+        'can_be_contacted',
+        'can_data_be_shared',
+    )
+
+admin.site.register(Users, UserAdmin)

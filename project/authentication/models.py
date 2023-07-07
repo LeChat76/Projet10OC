@@ -8,8 +8,11 @@ class Users(AbstractUser):
         max_length = 20,
         unique = True,
     )
-    email= None
-    birthday = models.DateField()
+    email = models.EmailField(
+        max_length=255,
+        unique=True,
+    )
+    birthday = models.DateField(null=True, blank=True, default=None)
     can_be_contacted = models.BooleanField(default=False)
     can_data_be_shared = models.BooleanField(default=False)
 
