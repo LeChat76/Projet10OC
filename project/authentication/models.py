@@ -1,18 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from datetime import date
+from datetime import date, datetime
 
 
 class Users(AbstractUser):
+
+    def __str__(self):
+        return self.username.capitalize()
+
+    # disable fields not needed in this project
+    email, first_name, last_name, last_login = None, None, None, None
+
     username = models.CharField(
         max_length = 20,
         unique = True,
     )
-    email = models.EmailField(
-        max_length=255,
-        unique=True,
-    )
-    birthday = models.DateField(null=True, blank=True, default=None)
+    birthday = models.DateField(default=None)
+    # date_joined = models.DateTimeField(default=datetime.now())
     can_be_contacted = models.BooleanField(default=False)
     can_data_be_shared = models.BooleanField(default=False)
 

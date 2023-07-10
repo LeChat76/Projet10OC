@@ -17,7 +17,7 @@ class Project(models.Model):
     type = models.CharField(max_length=10, choices=TYPES_PROJECT)
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=500, blank=True)
-    project_contributor = models.ForeignKey(
+    project_author = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='Project_contributor',
@@ -29,7 +29,7 @@ class Contributor(models.Model):
     def __str__(self):
         return f'{self.contributor_user}'
     
-    contributor_user = models.ForeignKey(
+    contributor_author = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='Contributor_user',
@@ -53,7 +53,7 @@ class Issue(models.Model):
         on_delete=models.CASCADE,
         related_name='Issue_project',
     )
-    issue_contributor = models.ForeignKey(
+    issue_author = models.ForeignKey(
         Contributor,
         on_delete=models.CASCADE,
         related_name='Issue_contributor',
@@ -82,7 +82,7 @@ class Issue(models.Model):
 
 class Comment(models.Model):
     description = models.CharField(max_length=500)
-    comment_user = models.ForeignKey(
+    comment_author = models.ForeignKey(
         Contributor,
         on_delete=models.CASCADE,
         related_name='Comment_user',

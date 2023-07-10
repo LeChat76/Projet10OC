@@ -19,10 +19,20 @@ from django.urls import path, include
 from rest_framework import routers
 
 from authentication.views import UserViewset
+from softdesk.views import ContributorViewset, ProjectViewset, IssueViewset, CommentViewset
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 router = routers.SimpleRouter()
 router.register('user', UserViewset, basename='user')
+router.register('contributor', ContributorViewset, basename='contributor')
+router.register('project', ProjectViewset, basename='project')
+router.register('issue', IssueViewset, basename='issue')
+router.register('comment', CommentViewset, basename='comment')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls))
+    path('api/', include(router.urls)),
+    # path('create_user/', UserViewset.as_view({'get': 'create'}), name='user-create'),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

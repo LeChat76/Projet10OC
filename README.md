@@ -19,3 +19,18 @@ Create virtual environment :
 Install the necessary libraries by typing : "pip install -r requirements.txt"
 Go in the folder of the projet : "cd project"
 And run the webserver : "python manage.py runserver"
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Utilisation
+The API provides the following endpoints.
+- Base url is : [http://localhost:8000/api/](http://localhost:8000/api/)
+1 ) create an user : user/
+    * mandatory
+    - `username=<username>` : username used to authenticate
+    - `password=<password>` : password associated to username
+    - `birthday=<birthday>` : birthday of the user, format dd/mm/yyyy
+    * optionnal
+    - `can_be_contaced`=<True> of <False> : user can be contacted?
+    - `can_be_shared`=<True> of <False> : user's data can be shared?
+
