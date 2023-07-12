@@ -1,20 +1,34 @@
-from django.shortcuts import render
 from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from .permissions import IsAdmin
 
 from rest_framework.viewsets import ModelViewSet
 from .models import Users
 from .serializers import UserSerializer
-from django.contrib.auth.hashers import make_password
+
 
 class UserViewset(ModelViewSet):
 
+    # permission_classes = [IsAuthenticated, IsAdmin]
     serializer_class = UserSerializer
-    queryset = Users.objects.filter(is_superuser='0')
 
-    # def update(self, request):
-    #     password = make_password(request['password'])  # enhances password hashing
-    #     user = Users(**request)
-    #     user.set_password(password) # password hashing
-    #     user.save()
-    #     return user
+    def get_queryset(self):
+        return Users.objects.filter(is_superuser='0')
+    
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        username = serializer.data['username']
+        message = f'Utilisateur {username} créé.'
+        return Response(message, status=status.HTTP_201_CREATED, headers=headers)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        message=f'Utilisateur {instance.username} supprimé.'
+        return Response(message, status=status.HTTP_204_NO_CONTENT)
+    
 

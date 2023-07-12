@@ -129,8 +129,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ##################### softdesk project #####################
 
+from datetime import timedelta
+
 AUTH_USER_MODEL = 'authentication.Users'
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
+DATE_FORMAT = 'd-m-Y'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS' : 'rest_framework.pagination.LimitOffsetPagination',
@@ -138,10 +141,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'DATE_INPUT_FORMATS': ["%d-%m-%Y"],
+    'DATE_INPUT_FORMATS': ['%d-%m-%Y'],
 }
 
-from datetime import timedelta
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
