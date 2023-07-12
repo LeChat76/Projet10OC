@@ -7,19 +7,19 @@ API creation with __Django Rest Framework__
 
 ## Installation
 
-* Clone repository: **git clone https://github.com/LeChat76/Projet10OC.git**  
-* Enter in created folder: **cd Projet10OC**  
-* Create virtual environment: **python -m venv .venv**  
+* Clone repository: `git clone https://github.com/LeChat76/Projet10OC.git`  
+* Enter in created folder: `cd Projet10OC`  
+* Create virtual environment: `python -m venv .venv`  
 * Activate environment:  
-    * for Linux **source .venv/bin/activate**  
-    * for Windows **.\\.venv\Scripts\activate**  
-* Install the necessary libraries: **pip install -r requirements.txt**  
-* Go in the folder of the projet: **cd project**  
-* And run the webserver: **python manage.py runserver**
+    * for Linux `source .venv/bin/activate`  
+    * for Windows `.\\.venv\Scripts\activate`  
+* Install the necessary libraries: `pip install -r requirements.txt`  
+* Go in the folder of the projet: `cd project`  
+* And run the webserver: `python manage.py runserver`  
 
 ## Utilisation
 The API provides the following endpoints.
-All of those endpoints has been tested with Postman.
+All endpoints have been tested with Postman.
 
 ----------------------------------------------------------------------------------
 
