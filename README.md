@@ -23,7 +23,7 @@ All endpoints have been tested with Postman.
 
 ----------------------------------------------------------------------------------
 
-### 1 - Create an user with **POST** method: **localhost:8000/api/user/**
+### 1 - Create an user with **POST** method: `localhost:8000/api/user/`
 * mandatory body options:
     - `username=<username>`: username used to authenticate
     - `password=<password>`: password associated to username
@@ -36,7 +36,7 @@ All endpoints have been tested with Postman.
 
 ----------------------------------------------------------------------------------
 
-### 2 - generate token with **POST** method: **localhost:8000/api/token/**
+### 2 - generate token with **POST** method: `localhost:8000/api/token/`
 * mandatory body options:
     - `username=<username>`: existing username
     - `password=<password>`: password of this username
@@ -58,7 +58,7 @@ All endpoints have been tested with Postman.
 
 ----------------------------------------------------------------------------------
 
-### 3 - create project with **POST** method: **localhost:8000/api/project/**
+### 3 - create project with **POST** method: `localhost:8000/api/project/`
 * mandatory body options:
     - `type=<frontend, frontend, ios, android>`: select type of project
     - `title=<title>`: title of this project(100 characters max)
