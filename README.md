@@ -45,12 +45,12 @@ All endpoints have been tested with Postman.
 
 #### Optionnals features for **user**
 - **GET** method:
-    - Show all users (except superuser): localhost:8000/api/user/
-    - Show specific user: localhost:8000/api/user/<int:pk>/
+    - Show all users (except superuser): `localhost:8000/api/user/`
+    - Show specific user: `localhost:8000/api/user/<int:pk>/`
 - **DEL** method:
-    - Delete specific user: localhost:8000/api/user/<int:pk>/
+    - Delete specific user: `localhost:8000/api/user/<int:pk>/`
 - **PUT** method:
-    - modify specific user: localhost:8000/api/user/<int:pk>/
+    - modify specific user: `localhost:8000/api/user/<int:pk>/`
         - mandatory body options:
             - `username=<username>`: username used to authenticate
             - `password=<password>`: password associated to username
@@ -69,10 +69,10 @@ Note : When creating a project, the authenticated user is automaticaly the autho
 
 #### Optionnals features for **project**
 - **GET** method:
-    - Show project(s) for current user: localhost:8000/api/project/
-    - Show specific project: localhost:8000/api/project/<int:pk>/
+    - Show project(s) for current user: `localhost:8000/api/project/`
+    - Show specific project: `localhost:8000/api/project/<int:pk>/`
 - **DEL** method (when deleting project, delation of record in contributor table by cascade):
-    - Delete specific project: localhost:8000/api/project/<int:pk>/
+    - Delete specific project: `localhost:8000/api/project/<int:pk>/`
 
 
 
