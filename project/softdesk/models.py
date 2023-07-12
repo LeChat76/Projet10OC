@@ -25,7 +25,7 @@ class Project(models.Model):
 class Contributor(models.Model):
 
     def __str__(self):
-        return f'{self.contributor_user}'
+        return f'{self.project}'
     
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,

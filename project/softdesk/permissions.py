@@ -3,7 +3,7 @@ from rest_framework.permissions import BasePermission
 class IsAdmin(BasePermission):
 
     def has_permission(self, request, view):
-        # LIST, POST
+        # LIST, CREATE
         print('REQUEST', request.user)
         return super().has_permission(request, view)
     
