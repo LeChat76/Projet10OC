@@ -25,7 +25,6 @@ class ProjectViewset(ModelViewSet):
     def create(self, request, *args, **kwargs):
         # not necessary, just to have a 'beautifull' report when created project associated to current user ;-)
         serializer = self.get_serializer(data=request.data)
-        print('SERIALIZER', serializer)
         serializer.is_valid(raise_exception=True)
         user = request.user
         self.perform_create(serializer)
