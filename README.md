@@ -67,6 +67,8 @@ All endpoints have been tested with Postman.
 
 Note : When creating a project, the authenticated user is automaticaly the author and the contributor.
 
+<img alt="create_project" src="https://github.com/LeChat76/Projet10OC/assets/119883313/38d52c73-e50e-4a63-b8f2-9695c5b94e6b">
+
 #### Optionnals features for **project**
 - **GET** method:
     - Show project(s) for current user: `localhost:8000/api/project/`
