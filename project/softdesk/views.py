@@ -16,6 +16,7 @@ class ProjectViewset(ModelViewSet):
 
      def get_queryset(self):
          return Project.objects.all()
+     
     
 class IssueViewset(ModelViewSet):
 
