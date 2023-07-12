@@ -1,5 +1,7 @@
 from rest_framework.serializers import ModelSerializer
- 
+from rest_framework import serializers
+from authentication.models import Users
+
 from softdesk.models import Contributor, Project, Issue, Comment
  
 class ContributorSerializer(ModelSerializer):
@@ -13,13 +15,15 @@ class ContributorSerializer(ModelSerializer):
 
 class ProjectSerializer(ModelSerializer):
 
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Project
         fields = [
             'type',
             'title',
             'description',
-            'project_contributor',
+            'user',
         ]
 
 class IssueSerializer(ModelSerializer):

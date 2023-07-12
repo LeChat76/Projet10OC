@@ -1,7 +1,11 @@
 from django.shortcuts import render
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from .models import Contributor, Project, Issue, Comment
 from .serializers import ContributorSerializer, ProjectSerializer, IssueSerializer, CommentSerializer
+from .permissions import IsAdmin
 
 class ContributorViewset(ModelViewSet):
 
@@ -12,11 +16,23 @@ class ContributorViewset(ModelViewSet):
 
 class ProjectViewset(ModelViewSet):
      
-     serializer_class = ProjectSerializer
+    permission_classes = [IsAuthenticated]
+    serializer_class = ProjectSerializer
 
-     def get_queryset(self):
-         return Project.objects.all()
-     
+    def get_queryset(self): # faire filtre pour afficher que les projet donc je suis contributeur et autheur
+        return Project.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        # not necessary, just to have a 'beautifull' report when created project associated to current user ;-)
+        serializer = self.get_serializer(data=request.data)
+        print('SERIALIZER', serializer)
+        serializer.is_valid(raise_exception=True)
+        user = request.user
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        project_title = serializer.data['title']
+        message = f'Projet {project_title} créé par {user.username}.'
+        return Response(message, status=status.HTTP_201_CREATED, headers=headers)
     
 class IssueViewset(ModelViewSet):
 

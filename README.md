@@ -50,7 +50,7 @@ All of those endpoints has been tested with Postman.
     - Show specific user : localhost:8000/api/user/<int:pk>/
 - **DEL** method:
     - Delete specific user : localhost:8000/api/user/<int:pk>/ (pk displayed in GET method)
-- **UPDATE** method:
+- **PUT** method:
     - modify specific user : localhost:8000/api/user/<int:pk>/ and specify in the body the field(s) you want to modify
         - mandatory body options:
             - `username=<username>` : username used to authenticate
@@ -59,7 +59,16 @@ All of those endpoints has been tested with Postman.
 
 ----------------------------------------------------------------------------------
 
-### 3 - Create project
+### 3 - Projects
+When creating a project, the authenticated user is automaticaly the author and the contributor.
+#### a - create project with **POST** method: **localhost:8000/api/project/**
+* mandatory body options:
+    - `type=<frontend, frontend, ios, android>` : select type of project
+    - `title=<title>` : title of this project(100 characters max)
+* optionnal body options:
+    - `description=<description>` : description of the project(500 characters max)
+
+
 
 
 

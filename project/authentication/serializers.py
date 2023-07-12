@@ -1,6 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from rest_framework import serializers, status
-from rest_framework.response import Response
+from rest_framework import serializers
 from datetime import date
 from .constantes import MIN_AGE
 

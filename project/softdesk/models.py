@@ -1,6 +1,5 @@
-from django.db import models, transaction
+from django.db import models
 from django.conf import settings
-from django.utils import timezone
 
 
 class Project(models.Model):
@@ -15,12 +14,11 @@ class Project(models.Model):
         ('android', 'Android')
     )
     type = models.CharField(max_length=10, choices=TYPES_PROJECT)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=500, blank=True)
-    project_author = models.ForeignKey(
+    user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='Project_contributor',
     )
     created_time = models.DateTimeField(editable=False, auto_now_add=True)
 
@@ -29,15 +27,13 @@ class Contributor(models.Model):
     def __str__(self):
         return f'{self.contributor_user}'
     
-    contributor_author = models.ForeignKey(
+    user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='Contributor_user',
     )
-    contributor_project = models.ForeignKey(
+    project = models.ForeignKey(
         to=Project,
         on_delete=models.CASCADE,
-        related_name='Contributor_project',
     )
     
     # class Meta:
@@ -48,15 +44,13 @@ class Issue(models.Model):
     def __str__(self):
         return f'{self.issue_project}'
     
-    issue_project = models.ForeignKey(
+    project = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
-        related_name='Issue_project',
     )
-    issue_author = models.ForeignKey(
+    contributor = models.ForeignKey(
         Contributor,
         on_delete=models.CASCADE,
-        related_name='Issue_contributor',
     )
     TYPES_PRIORITY = (
         ('low', 'Low'),
@@ -82,15 +76,13 @@ class Issue(models.Model):
 
 class Comment(models.Model):
     description = models.CharField(max_length=500)
-    comment_author = models.ForeignKey(
+    contributor = models.ForeignKey(
         Contributor,
         on_delete=models.CASCADE,
-        related_name='Comment_user',
     )
-    comment_issue = models.ForeignKey(
+    issue = models.ForeignKey(
         Issue,
         on_delete=models.CASCADE,
-        related_name='Comment_issue',
     )
     created_time = models.DateTimeField(editable=False, auto_now_add=True)
 

@@ -7,20 +7,20 @@ class ProjectAdmin(admin.ModelAdmin):
         'title',
         'type',
         'description',
-        'project_author',
+        'user',
         'created_time'
     )
 
 class ContributorAdmin(admin.ModelAdmin):
     list_display = (
-        'contributor_author',
-        'contributor_project',
+        'user',
+        'project',
     )
 
 class IssuAdmin(admin.ModelAdmin):
     list_display = (
-        'issue_project',
-        'issue_author',
+        'project',
+        'contributor',
         'priority',
         'title',
         'description',
@@ -32,8 +32,8 @@ class IssuAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = (
         'description',
-        'comment_author',
-        'comment_issue',
+        'contributor',
+        'issue',
     )
 
 admin.site.register(Project, ProjectAdmin)
