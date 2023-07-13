@@ -1,6 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 from authentication.models import Users
+from django.shortcuts import get_object_or_404
 
 
 from softdesk.models import Contributor, Project, Issue, Comment
@@ -16,8 +17,6 @@ class ContributorSerializer(ModelSerializer):
 
 class ProjectSerializer(ModelSerializer):
 
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
     class Meta:
         model = Project
         fields = [
@@ -29,8 +28,8 @@ class ProjectSerializer(ModelSerializer):
 
 class IssueSerializer(ModelSerializer):
 
-    contributor = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    
     class Meta:
         model = Issue
         fields = [
@@ -39,11 +38,13 @@ class IssueSerializer(ModelSerializer):
             'type',
             'priority',
             'statut',
-            'contributor',
+            'user',
             'project',
         ]
 
 class CommentSerializer(ModelSerializer):
+
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Comment

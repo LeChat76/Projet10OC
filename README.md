@@ -80,7 +80,7 @@ Note : When creating a project, the authenticated user is automaticaly the autho
 ----------------------------------------------------------------------------------
 
 ### 4 - Create Issue(s) with **POST** method: `localhost:8000/api/issue/`
-Note : you can create only issue for project you are author, contributor can only read
+Note : you can create issues only for project you are contributor or author
 * mandatory body options:
     - `priority=<low, medium, high>`: priority level
     - `title=<title>`: title of this issue(100 characters max)
@@ -92,5 +92,14 @@ Note : you can create only issue for project you are author, contributor can onl
 
 <img alt="create_issue" src="https://github.com/LeChat76/Projet10OC/assets/119883313/07def0fc-ddc0-4026-b3f6-df265879e4c5">
 
+----------------------------------------------------------------------------------
 
+### 5 - Create Comment(s) with **POST** method: `localhost:8000/api/comment/`
+Note : you can create comments only for project you are contributor or author
+* mandatory body options:
+    - `issue=<issue_id>`: issue ID to associate comment with
+    - `description=<description>`: description of the project(500 characters max)
 
+<img alt="create_issue" src="https://github.com/LeChat76/Projet10OC/assets/119883313/cc81f63e-0e38-49ef-b7ae-e0720c22f7ac">
+
+----------------------------------------------------------------------------------

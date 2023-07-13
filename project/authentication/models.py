@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 class Users(AbstractUser):
 
     def __str__(self):
-        return self.username.capitalize()
+        return f'username : {self.username} / id : {self.id}'
 
     # disable fields not needed in this project
     email, first_name, last_name, last_login = None, None, None, None

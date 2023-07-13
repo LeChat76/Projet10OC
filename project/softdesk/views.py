@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from .models import Contributor, Project, Issue, Comment
 from .serializers import ContributorSerializer, ProjectSerializer, IssueSerializer, CommentSerializer
-from .permissions import IsContributor, IsAuthor
+from .permissions import IsAuthorized
 from django.shortcuts import get_object_or_404
 
 class ContributorViewset(ModelViewSet):
@@ -16,16 +16,16 @@ class ContributorViewset(ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return Contributor.objects.filter(user=user)
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = request.user
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        project_title = serializer.data['title']
-        message = f"Projet '{project_title}' créé par {user.username}."
-        return Response(message, status=status.HTTP_201_CREATED, headers=headers)
+    
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     user = request.user
+    #     self.perform_create(serializer)
+    #     headers = self.get_success_headers(serializer.data)
+    #     project_title = serializer.data['title']
+    #     message = f"Projet '{project_title}' créé par {user.username}."
+    #     return Response(message, status=status.HTTP_201_CREATED, headers=headers)
 
 class ProjectViewset(ModelViewSet):
      
@@ -37,56 +37,41 @@ class ProjectViewset(ModelViewSet):
         #     print('SELF:', container)
         return Project.objects.filter(user=self.request.user)
 
-    def perform_create(self, serializer):
-        # function overloaded to add a record in contributor table automaticaly when create a new project
-        project = serializer.save()
-        Contributor.objects.create(project=project, user=self.request.user)
+    # def perform_create(self, serialized_data):
+    #     # function overloaded to add a record in contributor table automaticaly when create a new project
+    #     project = serialized_data.save()
+    #     Contributor.objects.create(project=project, user=self.request.user)
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = request.user
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        project_title = serializer.data['title']
-        message = f"Projet '{project_title}' créé par {user.username}."
-        return Response(message, status=status.HTTP_201_CREATED, headers=headers)
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     user = request.user
+    #     self.perform_create(serializer)
+    #     headers = self.get_success_headers(serializer.data)
+    #     project_title = serializer.data['title']
+    #     message = f"Projet '{project_title}' créé par {user.username}."
+    #     return Response(message, status=status.HTTP_201_CREATED, headers=headers)
     
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        self.perform_destroy(instance)
-        message=f'Projet {instance.title} supprimé.'
-        return Response(message, status=status.HTTP_204_NO_CONTENT)
+    # def destroy(self, request, *args, **kwargs):
+    #     instance = self.get_object()
+    #     self.perform_destroy(instance)
+    #     message=f'Projet {instance.title} supprimé.'
+    #     return Response(message, status=status.HTTP_204_NO_CONTENT)
     
 from rest_framework.exceptions import ValidationError
 
 class IssueViewset(ModelViewSet):
-    permission_classes = [IsAuthenticated, IsContributor, IsAuthor]
+
+    permission_classes = [IsAuthenticated]
     serializer_class = IssueSerializer
 
     def get_queryset(self):
-        return Issue.objects.all()
-
-    # def perform_create(self, serializer):
-    #     contributor = self.request.user
-    #     print('CONTRIBUTOR', contributor)
-    #     serializer.save(contributor=contributor)
+        return Issue.objects.filter(user=self.request.user)
     
-    def create(self, request, *args, **kwargs):
-        project_id = request.data.get('project')
-        contributor = get_object_or_404(Contributor, project_id=project_id, user=request.user)
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save(contributor=contributor)
-        user = request.user
-        issue_title = serializer.data['title']
-        message = f"Issue '{issue_title}' créée par {user.username}."
-        return Response(message, status=status.HTTP_201_CREATED)
-
 class CommentViewset(ModelViewSet):
 
     serializer_class = CommentSerializer
 
     def get_queryset(self):
-        return Comment.objects.all()
+        return Comment.objects.filter(user=self.request.user)
     

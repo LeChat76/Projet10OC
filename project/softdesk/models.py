@@ -48,8 +48,8 @@ class Issue(models.Model):
         Project,
         on_delete=models.CASCADE,
     )
-    contributor = models.ForeignKey(
-        Contributor,
+    user = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
     TYPES_PRIORITY = (
@@ -74,10 +74,13 @@ class Issue(models.Model):
     statut = models.CharField(default='todo', max_length=11, choices=TYPES_STATUT)
     created_time = models.DateTimeField(editable=False, auto_now_add=True)
 
+    class Meta:
+        unique_together = ('title', 'project')
+
 class Comment(models.Model):
     description = models.CharField(max_length=500)
-    contributor = models.ForeignKey(
-        Contributor,
+    user = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
     issue = models.ForeignKey(
