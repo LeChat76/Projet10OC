@@ -59,6 +59,7 @@ All endpoints have been tested with Postman.
 ----------------------------------------------------------------------------------
 
 ### 3 - create project with **POST** method: `localhost:8000/api/project/`
+<font color="red">**At this point, all request without Token will be rejected**</font>
 * mandatory body options:
     - `type=<frontend, frontend, ios, android>`: select type of project
     - `title=<title>`: title of this project(100 characters max)
@@ -72,9 +73,24 @@ Note : When creating a project, the authenticated user is automaticaly the autho
 #### Optionnals features for **project**
 - **GET** method:
     - Show project(s) for current user: `localhost:8000/api/project/`
-    - Show specific project: `localhost:8000/api/project/<int:pk>/`
+    - Show specific project if authorized: `localhost:8000/api/project/<int:pk>/`
 - **DEL** method (when deleting project, delation of record in contributor table by cascade):
     - Delete specific project: `localhost:8000/api/project/<int:pk>/`
+
+----------------------------------------------------------------------------------
+
+### 4 - Create Issue(s) with **POST** method: `localhost:8000/api/issue/`
+Note : you can create only issue for project you are author, contributor can only read
+* mandatory body options:
+    - `priority=<low, medium, high>`: priority level
+    - `title=<title>`: title of this issue(100 characters max)
+    - `type=<bug, feature, task>`: type of issue
+    - `project=<project_id>`: project ID
+* optionnal body options:
+    - `description=<description>`: description of the project(500 characters max)
+    - `statut=<todo, inprogress, finished>`: statut of the issue(default= todo )
+
+<img alt="create_issue" src="https://github.com/LeChat76/Projet10OC/assets/119883313/07def0fc-ddc0-4026-b3f6-df265879e4c5">
 
 
 

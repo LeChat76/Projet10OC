@@ -36,8 +36,8 @@ class Contributor(models.Model):
         on_delete=models.CASCADE,
     )
     
-    # class Meta:
-    #     unique_together = ('contributor_user', 'contributor_project')
+    class Meta:
+        unique_together = ('user', 'project')
 
 class Issue(models.Model):
 
