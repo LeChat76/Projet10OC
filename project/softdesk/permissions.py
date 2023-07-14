@@ -1,13 +1,14 @@
 from rest_framework.permissions import BasePermission
-from rest_framework import permissions
-from .models import Contributor, Project
 
-class IsAdmin(BasePermission):
+from .models import Contributor, Project, Issue
 
-    def has_permission(self, request, view):
-        # LIST, CREATE
-        print('REQUEST', request.user)
-        return super().has_permission(request, view)
+
+# class IsAdmin(BasePermission):
+
+#     def has_permission(self, request, view):
+#         # LIST, CREATE
+#         print('REQUEST', request.user)
+#         return super().has_permission(request, view)
     
     
 #     def has_object_permission(self, request, view, obj):
@@ -16,26 +17,34 @@ class IsAdmin(BasePermission):
 #         print('OBJ', obj)
 #         return super().has_object_permission(request, view, obj)
     
-class IsAuthorized(permissions.BasePermission):
+class IsIssueAuthorized(BasePermission):
+    # test if user is authorized to create issue for specific project :
+    def has_permission(self, request, view):
+        project_id = request.data.get('project')
+        print('PROJECT', project_id)
+        print('USERNAME', request.user)
+        return bool(
+            # check if "couple user-project" exist in contributor table
+            Contributor.objects.filter(project_id=project_id, user=request.user).exists() or 
+            # check if user is author of the project
+            Project.objects.filter(id=project_id, user=request.user).exists()
+        )
 
-    def has_obj_permission(self, request, view):
-        # For PATCH, PUT, UPDATE, DELETE
-        project_id = request.data.get('project')
-        if project_id is None:
-            return False
-        is_contributor = Contributor.objects.filter(project_id=project_id, user=request.user).exists()
-        if is_contributor:
-            return True
-        is_author = Project.objects.filter(id=project_id, user=request.user).exists()
-        if is_author:
-            return True    
-        else:
-            return False
-    
-    def has_permission(self, request, view, obj):
-        # For LIST, CREATE
-        project_id = request.data.get('project')
-        if Project.objects.filter(id=project_id, user=request.user).exists():
-            return True
-        else:
-            return False
+class IsCommentAuthorized(BasePermission):
+    # test if user is authorized to create issue for specific project :
+    def has_permission(self, request, view):
+        issue_id = request.data.get('issue')
+        print('ISSUE', issue_id)
+        print('USERNAME', request.user)
+        # test if issue_id is associated to an issue in the table
+        if Issue.objects.filter(id=issue_id).exists():
+            # if YES, collect project_id associated to the issue
+            project_id = Issue.objects.filter(id=issue_id).values('project').first().get('project')
+            print('PROJECT_ID', project_id)
+            return bool(
+                # check if "couple user-project" exist in contributor table
+                Contributor.objects.filter(project_id=project_id, user=request.user).exists() or 
+                # check if user is author of the project
+                Project.objects.filter(id=project_id, user=request.user).exists()
+            )
+        return False

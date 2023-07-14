@@ -1,11 +1,9 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from authentication.models import Users
-from django.shortcuts import get_object_or_404
-
 
 from softdesk.models import Contributor, Project, Issue, Comment
  
+
 class ContributorSerializer(ModelSerializer):
  
     class Meta:

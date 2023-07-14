@@ -1,12 +1,10 @@
 from django.shortcuts import render
-from rest_framework import status
-from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from .models import Contributor, Project, Issue, Comment
 from .serializers import ContributorSerializer, ProjectSerializer, IssueSerializer, CommentSerializer
-from .permissions import IsAuthorized
-from django.shortcuts import get_object_or_404
+from .permissions import IsIssueAuthorized, IsCommentAuthorized
+
 
 class ContributorViewset(ModelViewSet):
 
@@ -58,20 +56,21 @@ class ProjectViewset(ModelViewSet):
     #     message=f'Projet {instance.title} supprimé.'
     #     return Response(message, status=status.HTTP_204_NO_CONTENT)
     
-from rest_framework.exceptions import ValidationError
-
 class IssueViewset(ModelViewSet):
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsIssueAuthorized]
     serializer_class = IssueSerializer
 
     def get_queryset(self):
+        # display only issue associated to this user
         return Issue.objects.filter(user=self.request.user)
     
 class CommentViewset(ModelViewSet):
-
+    
+    permission_classes = [IsAuthenticated, IsCommentAuthorized]
     serializer_class = CommentSerializer
 
     def get_queryset(self):
+        # display only comment associated to this user
         return Comment.objects.filter(user=self.request.user)
     

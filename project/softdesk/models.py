@@ -89,3 +89,5 @@ class Comment(models.Model):
     )
     created_time = models.DateTimeField(editable=False, auto_now_add=True)
 
+    # class Meta:
+    #     unique_together = ('user', 'description')
