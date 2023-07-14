@@ -1,6 +1,6 @@
-from django.shortcuts import render
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
+
 from .models import Contributor, Project, Issue, Comment
 from .serializers import ContributorSerializer, ProjectSerializer, IssueSerializer, CommentSerializer
 from .permissions import IsIssueAuthorized, IsCommentAuthorized

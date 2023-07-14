@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
+from django.db.models.signals import pre_save
+from django.contrib.auth.hashers import make_password
 
 
 class Users(AbstractUser):
@@ -20,4 +22,8 @@ class Users(AbstractUser):
     can_be_contacted = models.BooleanField(default=False)
     can_data_be_shared = models.BooleanField(default=False)
 
+def hash_password(sender, instance, **kwargs):
+    if instance.password:
+        instance.password = make_password(instance.password)
 
+pre_save.connect(hash_password, sender=Users)

@@ -34,6 +34,28 @@ All endpoints have been tested with Postman.
 
  <img alt="create_user" src="https://github.com/LeChat76/Projet10OC/assets/119883313/669f4860-cea7-40b6-b870-25419a76ca69">
 
+#### Optionnals features for **user**
+- **GET** method:
+    - Show all users (except superuser): `localhost:8000/api/user/`
+    - Show specific user: `localhost:8000/api/user/<int:pk>/`
+
+### <font color="red">RGPD rules:</font>
+- Modify `can_be_contacted` and `can_data_be_shared` with **PATCH** method: `localhost:8000/api/user/<int:pk>/`
+* mandatory body options:
+    - `username=<username>`: username associated to the pk
+* optionnal options:
+    - `can_be_contacted=<1 or O>` for True of False: user can be contacted?  
+        OR/AND  
+    - `can_data_be_shared=<1 or O>`  for True of False: user's data can be shared?
+    - `password=<password>`: to modify password
+    - `birthday=<birthday>`: to modify birthday, format dd-mm-yyyy (less than 15 years old will be rejected)  
+
+<img alt="rgpd" src="https://github.com/LeChat76/Projet10OC/assets/119883313/1cf0bf05-38a8-4652-a24f-d78e096e13e7">   
+
+- Delete specific user with **DEL** method: `localhost:8000/api/user/<int:pk>/`
+* mandatory body options:
+    - `username=<username>`: username associated to the pk
+
 ----------------------------------------------------------------------------------
 
 ### 2 - generate token with **POST** method: `localhost:8000/api/token/`
@@ -42,19 +64,6 @@ All endpoints have been tested with Postman.
     - `password=<password>`: password of this username
 
 <img alt="generate_token" src="https://github.com/LeChat76/Projet10OC/assets/119883313/91cc8beb-c5d8-431c-be0d-7e93e5aaa9e8">
-
-#### Optionnals features for **user**
-- **GET** method:
-    - Show all users (except superuser): `localhost:8000/api/user/`
-    - Show specific user: `localhost:8000/api/user/<int:pk>/`
-- **DEL** method:
-    - Delete specific user: `localhost:8000/api/user/<int:pk>/`
-- **PUT** method:
-    - modify specific user: `localhost:8000/api/user/<int:pk>/`
-        - mandatory body options:
-            - `username=<username>`: username used to authenticate
-            - `password=<password>`: password associated to username
-            - `birthday=<birthday>`: birthday of the user, format dd-mm-yyyy (less than 15 years old will be rejected)
 
 ----------------------------------------------------------------------------------
 
