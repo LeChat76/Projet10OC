@@ -8,7 +8,7 @@ from django.contrib.auth.hashers import make_password
 class Users(AbstractUser):
 
     def __str__(self):
-        return f'username : {self.username} / id : {self.id}'
+        return f'username: {self.username} - id: {self.id}'
 
     # disable fields not needed in this project
     email, first_name, last_name, last_login = None, None, None, None

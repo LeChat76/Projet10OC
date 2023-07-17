@@ -3,12 +3,12 @@ from rest_framework.viewsets import ModelViewSet
 
 from .models import Users
 from .serializers import UserSerializer
-from .permissions import IsUserAuthorized
+# from .permissions import IsUserAuthorized
 
 
 class UserViewset(ModelViewSet):
 
-    permission_classes = [IsUserAuthorized]
+    # permission_classes = [IsUserAuthorized]
     serializer_class = UserSerializer
 
     def get_queryset(self):

@@ -42,7 +42,7 @@ class Contributor(models.Model):
 class Issue(models.Model):
 
     def __str__(self):
-        return f'{self.issue_project}'
+        return f'{self.title}'
     
     project = models.ForeignKey(
         Project,
@@ -89,5 +89,5 @@ class Comment(models.Model):
     )
     created_time = models.DateTimeField(editable=False, auto_now_add=True)
 
-    # class Meta:
-    #     unique_together = ('user', 'description')
+    class Meta:
+        unique_together = ('user', 'description')

@@ -40,21 +40,16 @@ All endpoints have been tested with Postman.
     - Show specific user: `localhost:8000/api/user/<int:pk>/`
 
 ### <font color="red">RGPD rules:</font>
-- Modify `can_be_contacted` and `can_data_be_shared` with **PATCH** method: `localhost:8000/api/user/<int:pk>/`
-* mandatory body options:
-    - `username=<username>`: username associated to the pk
-* optionnal options:
-    - `can_be_contacted=<1 or O>` for True of False: user can be contacted?  
-        OR/AND  
-    - `can_data_be_shared=<1 or O>`  for True of False: user's data can be shared?
-    - `password=<password>`: to modify password
+- Modify `can_be_contacted` and `can_data_be_shared` and all others field with **PATCH** method: `localhost:8000/api/user/<int:pk>/`
+    - `username=<username>`: to modify username  
+    - `can_be_contacted=<1 or O>` to modify 'can_be_contacted' field  
+    - `can_data_be_shared=<1 or O>`  to modify 'can_data_be_shared' field  
+    - `password=<password>`: to modify password  
     - `birthday=<birthday>`: to modify birthday, format dd-mm-yyyy (less than 15 years old will be rejected)  
 
 <img alt="rgpd" src="https://github.com/LeChat76/Projet10OC/assets/119883313/1cf0bf05-38a8-4652-a24f-d78e096e13e7">   
 
 - Delete specific user with **DEL** method: `localhost:8000/api/user/<int:pk>/`
-* mandatory body options:
-    - `username=<username>`: username associated to the pk
 
 ----------------------------------------------------------------------------------
 
@@ -70,40 +65,56 @@ All endpoints have been tested with Postman.
 ### 3 - create project with **POST** method: `localhost:8000/api/project/`
 <font color="red">**At this point, all request without Token will be rejected**</font>
 * mandatory body options:
-    - `type=<frontend, frontend, ios, android>`: select type of project
+    - `type=<backend, frontend, ios, android>`: select type of project
     - `title=<title>`: title of this project(100 characters max)
 * optionnal body options:
     - `description=<description>`: description of the project(500 characters max)  
 
-Note : When creating a project, the authenticated user is automaticaly the author and the contributor.
+Note : for better project management, identical titles are refused
 
-<img alt="create_project" src="https://github.com/LeChat76/Projet10OC/assets/119883313/38d52c73-e50e-4a63-b8f2-9695c5b94e6b">
+<img alt="create_project" src="https://github.com/LeChat76/Projet10OC/assets/119883313/3380790e-9632-4610-b98b-87b640541fce">
 
 #### Optionnals features for **project**
 - **GET** method:
     - Show project(s) for current user: `localhost:8000/api/project/`
-    - Show specific project if authorized: `localhost:8000/api/project/<int:pk>/`
+    - Show specific project if author: `localhost:8000/api/project/<int:pk>/`
 - **DEL** method (when deleting project, delation of record in contributor table by cascade):
-    - Delete specific project: `localhost:8000/api/project/<int:pk>/`
+    - Delete specific project if author: `localhost:8000/api/project/<int:pk>/`
 
 ----------------------------------------------------------------------------------
 
-### 4 - Create Issue(s) with **POST** method: `localhost:8000/api/issue/`
-Note : you can create issues only for project you are contributor or author
-* mandatory body options:
-    - `priority=<low, medium, high>`: priority level
-    - `title=<title>`: title of this issue(100 characters max)
-    - `type=<bug, feature, task>`: type of issue
-    - `project=<project_id>`: project ID
-* optionnal body options:
-    - `description=<description>`: description of the project(500 characters max)
-    - `statut=<todo, inprogress, finished>`: statut of the issue(default= todo )
+### 4 - Manage contributor  
+You can add contributor for specific user and project with **POST** method: localhost:8000/api/contributor/  
+* mandatory body options:  
+    - `project=<project:pk>`: pk of the project to which to add a user  
+    - `user=<user:pk>`: pk of the user to add to the project  
+
+Note : for security reason, only author of projects can add users its projects. And author can not add himself
+because already authorized on its own projects.
+
+----------------------------------------------------------------------------------
+
+### 5 - Create Issue(s) with **POST** method: `localhost:8000/api/issue/`
+Note : you can create issues only for project you are contributor or author  
+* mandatory body options:  
+    - `priority=<low, medium, high>`: priority level  
+    - `title=<title>`: title of this issue(100 characters max)  
+    - `type=<bug, feature, task>`: type of issue  
+    - `project=<project_id>`: project ID  
+* optionnal body options:  
+    - `description=<description>`: description of the project(500 characters max)  
+    - `statut=<todo, inprogress, finished>`: statut of the issue(default= todo )  
 
 <img alt="create_issue" src="https://github.com/LeChat76/Projet10OC/assets/119883313/07def0fc-ddc0-4026-b3f6-df265879e4c5">
 
+#### Optionnals features for **issue**  
+- **GET** method:  
+    - Show issue for current user: `localhost:8000/api/issue/`  
+    - Show specific issue if authorized: `localhost:8000/api/issue/<int:pk>/`  
+
 ----------------------------------------------------------------------------------
 
-### 5 - Create Comment(s) with **POST** method: `localhost:8000/api/comment/`
+### 6 - Create Comment(s) with **POST** method: `localhost:8000/api/comment/`
 Note : you can create comments only for project you are contributor or author
 * mandatory body options:
     - `issue=<issue_id>`: issue ID to associate comment with
