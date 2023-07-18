@@ -7,10 +7,11 @@ class IsProjectAuthorized(BasePermission):
     def has_object_permission(self, request, view, obj):
         project_id = obj.id
         user = request.user
-        print('PROJECT_AUTHOR', project_id)
-        print('USER', user)
-        return bool(Project.objects.filter(id=project_id, user=user).exists() or 
-                    Contributor.objects.filter(project_id=project_id, user=user).exists()
+        # print('PROJECT_AUTHOR', project_id)
+        # print('USER', user)
+        return bool(
+            Project.objects.filter(id=project_id, user=user).exists() or 
+            Contributor.objects.filter(project_id=project_id, user=user).exists()
         )
 
 class isContributorAuthorized(BasePermission):

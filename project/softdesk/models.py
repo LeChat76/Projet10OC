@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 
 
 class Project(models.Model):
@@ -13,7 +14,7 @@ class Project(models.Model):
         ('ios', 'iOS'),
         ('android', 'Android')
     )
-    
+
     type = models.CharField(max_length=10, choices=TYPES_PROJECT)
     title = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=500, blank=True)
@@ -76,7 +77,7 @@ class Issue(models.Model):
         ('finished', 'Finished'),
     )
     statut = models.CharField(default='todo', max_length=11, choices=TYPES_STATUT)
-    created_time = models.DateTimeField(editable=False, auto_now_add=True)
+    created_time = models.DateTimeField(editable=False, default=timezone.now)
 
     class Meta:
         unique_together = ('title', 'project')

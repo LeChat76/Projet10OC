@@ -34,7 +34,7 @@ All endpoints have been tested with Postman.
 
  <img alt="create_user" src="https://github.com/LeChat76/Projet10OC/assets/119883313/669f4860-cea7-40b6-b870-25419a76ca69">
 
-#### Optionnals features for **user**
+#### Optionnals features for **user**:
 - **GET** method:
     - Show all users (except superuser): `localhost:8000/api/user/`
     - Show specific user: `localhost:8000/api/user/<int:pk>/`
@@ -74,7 +74,7 @@ Note : for better project management, identical titles are refused
 
 <img alt="create_project" src="https://github.com/LeChat76/Projet10OC/assets/119883313/3380790e-9632-4610-b98b-87b640541fce">
 
-#### Optionnals features for **project**
+#### Optionnals features for **project**:
 - **GET** method:
     - Show project(s) for current user: `localhost:8000/api/project/`
     - Show specific project if author: `localhost:8000/api/project/<int:pk>/`
@@ -83,7 +83,7 @@ Note : for better project management, identical titles are refused
 
 ----------------------------------------------------------------------------------
 
-### 4 - Manage contributor  
+### 4 - Manage contributor with **POST** method: `localhost:8000/api/contributor/`
 You can add contributor for specific user and project with **POST** method: localhost:8000/api/contributor/  
 * mandatory body options:  
     - `project=<project:pk>`: pk of the project to which to add a user  
@@ -94,7 +94,7 @@ You can add contributor for specific user and project with **POST** method: loca
 Note : for security reason, only author of projects can add users its projects. And author can not add himself
 because already authorized on its own projects.
 
-#### Optionnals features for **contributor**  
+#### Optionnals features for **contributor**:  
 - **DEL** method:
     - You can delete specific contributor: `localhost:8000/api/contributor/<int:pk>/` 
 
@@ -113,7 +113,7 @@ Note : you can create issues only for project you are contributor or author
 
 <img alt="create_issue" src="https://github.com/LeChat76/Projet10OC/assets/119883313/b9e18196-ed9f-47d3-bff4-a874ae741c31">
 
-#### Optionnals features for **issue**  
+#### Optionnals features for **issue**:  
 - **GET** method:  
     - Show all issues for current user: `localhost:8000/api/issue/`  
     - Show specific issue if authorized: `localhost:8000/api/issue/<int:pk>/`  
@@ -133,7 +133,7 @@ Note : you can create comments only for project you are contributor or author
 
 <img alt="create_comment" src="https://github.com/LeChat76/Projet10OC/assets/119883313/cc81f63e-0e38-49ef-b7ae-e0720c22f7ac">
 
-#### Optionnals features for **comment**  
+#### Optionnals features for **comment**:  
 - **GET** method:  
     - Show all comments for current user: `localhost:8000/api/comment/`  
     - Show specific comment if authorized: `localhost:8000/api/comment/<int:pk>/`  
