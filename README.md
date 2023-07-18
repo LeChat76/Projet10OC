@@ -109,7 +109,7 @@ Note : you can create issues only for project you are contributor or author
 
 #### Optionnals features for **issue**  
 - **GET** method:  
-    - Show issue for current user: `localhost:8000/api/issue/`  
+    - Show all issues for current user: `localhost:8000/api/issue/`  
     - Show specific issue if authorized: `localhost:8000/api/issue/<int:pk>/`  
 
 ----------------------------------------------------------------------------------
@@ -121,5 +121,10 @@ Note : you can create comments only for project you are contributor or author
     - `description=<description>`: description of the project(500 characters max)
 
 <img alt="create_issue" src="https://github.com/LeChat76/Projet10OC/assets/119883313/cc81f63e-0e38-49ef-b7ae-e0720c22f7ac">
+
+#### Optionnals features for **comment**  
+- **GET** method:  
+    - Show all comments for current user: `localhost:8000/api/comment/`  
+    - Show specific comment if authorized: `localhost:8000/api/comment/<int:pk>/`  
 
 ----------------------------------------------------------------------------------
