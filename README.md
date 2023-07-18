@@ -105,7 +105,7 @@ Note : you can create issues only for project you are contributor or author
     - `description=<description>`: description of the project(500 characters max)  
     - `statut=<todo, inprogress, finished>`: statut of the issue(default= todo )  
 
-<img alt="create_issue" src="https://github.com/LeChat76/Projet10OC/assets/119883313/07def0fc-ddc0-4026-b3f6-df265879e4c5">
+<img alt="create_issue" src="https://github.com/LeChat76/Projet10OC/assets/119883313/b9e18196-ed9f-47d3-bff4-a874ae741c31">
 
 #### Optionnals features for **issue**  
 - **GET** method:  
