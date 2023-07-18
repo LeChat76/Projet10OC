@@ -4,7 +4,6 @@ from .models import Contributor, Project, Issue, Comment
 
 class IsProjectAuthorized(BasePermission):
 
-    # check is current user is authorized to delete project
     def has_object_permission(self, request, view, obj):
         project_id = obj.id
         user = request.user
@@ -16,7 +15,6 @@ class IsProjectAuthorized(BasePermission):
 
 class isContributorAuthorized(BasePermission):
 
-    # check if current user is authorized to add contributor
     def has_permission(self, request, view):
         project_id = request.data.get('project')
         project_author = Project.objects.filter(id=project_id).values('user').first()['user']
@@ -33,24 +31,33 @@ class isContributorAuthorized(BasePermission):
         
 class IsIssueAuthorized(BasePermission):
 
-    # check if connected user is authorized to add Issue
     def has_permission(self, request, view):
-        project_id = request.data.get('project')
-        user = request.user
-        print('PROJECT', project_id)
-        print('USERNAME', user)
-        return bool(
-            # check if "couple user-project" exist in contributor table
-            Contributor.objects.filter(project_id=project_id, user=user).exists() or 
-            # check if user is author of the project
-            Project.objects.filter(id=project_id, user=request.user).exists()
-        )
+        if request.method == 'POST':
+            user=request.user
+            project_id = request.data.get('project')
+            # print('PROJECT_ID', project_id)
+            if Project.objects.filter(id=project_id).exists():
+                return bool(
+                    # check if authenticated user is contributor of this project
+                    Contributor.objects.filter(project_id=project_id, user=user).exists() or 
+                    # otherwise if authenticated user is project's author
+                    Project.objects.filter(id=project_id, user=request.user).exists()
+            )
+
+        return True
+
     
     def has_object_permission(self, request, view, obj):
-        return bool(
-            # check if logged user is the author of the comment
-            Issue.objects.filter(user=request.user).exists()
-        )
+        if request.method in ['DELETE', 'GET']:
+            user = request.user
+            project_id = obj.project.id
+            print('PROJECT_ID', project_id)
+            return bool(
+                # check if authenticated user is contributor of this project
+                Contributor.objects.filter(project=project_id, user=user).exists() or 
+                # otherwise if authenticated user is project's author
+                Project.objects.filter(id=project_id, user=user).exists()
+            )
 
 class IsCommentAuthorized(BasePermission):
 
@@ -58,15 +65,15 @@ class IsCommentAuthorized(BasePermission):
         if request.method == 'POST':
             user=request.user
             issue_id = request.data.get('issue')
-            print('ISSUE_ID', issue_id)
+            # print('ISSUE_ID', issue_id)
             if Issue.objects.filter(id=issue_id).exists():
                 project_id = Issue.objects.filter(id=issue_id).values('project').first()['project']
-                print('PROJECT_ID', project_id)
-                print('POST_METHOD')
+                # print('PROJECT_ID', project_id)
+                # print('POST_METHOD')
                 return bool(
-                    # check if user is contributor of this project
+                    # check if authenticated user is contributor of this project
                     Contributor.objects.filter(project=project_id, user=user).exists() or 
-                    # otherwise if user is project's author
+                    # otherwise if authenticated user is project's author
                     Project.objects.filter(id=project_id, user=user).exists()
                 )
 
@@ -74,17 +81,16 @@ class IsCommentAuthorized(BasePermission):
     
     def has_object_permission(self, request, view, obj):
         if request.method in ['DELETE', 'GET']:
-            print('DELETE_METHOD')
             user = request.user
-            print('USER', user)
+            # print('USER', user)
             issue_id = obj.issue.id
-            print('ISSUE_ID', issue_id)
+            # print('ISSUE_ID', issue_id)
             project_id = Issue.objects.filter(id=issue_id).values('project').first()['project']
-            print('PROJECT_ID', project_id)
+            # print('PROJECT_ID', project_id)
             return bool(
-                # check if user is contributor of this project
+                # check if authenticated user is contributor of this project
                 Contributor.objects.filter(project=project_id, user=user).exists() or 
-                # otherwise if user is project's author
+                # otherwise if authenticated user is project's author
                 Project.objects.filter(id=project_id, user=user).exists()
             )
         
