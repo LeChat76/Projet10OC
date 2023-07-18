@@ -12,18 +12,9 @@ class ContributorViewset(ModelViewSet):
     serializer_class = ContributorSerializer
 
     def get_queryset(self):
+        # display only projet(s) I'm contributor
         user = self.request.user
         return Contributor.objects.filter(user=user)
-    
-    # def create(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     user = request.user
-    #     self.perform_create(serializer)
-    #     headers = self.get_success_headers(serializer.data)
-    #     project_title = serializer.data['title']
-    #     message = f"Projet '{project_title}' créé par {user.username}."
-    #     return Response(message, status=status.HTTP_201_CREATED, headers=headers)
 
 class ProjectViewset(ModelViewSet):
      
