@@ -13,6 +13,7 @@ class Project(models.Model):
         ('ios', 'iOS'),
         ('android', 'Android')
     )
+    
     type = models.CharField(max_length=10, choices=TYPES_PROJECT)
     title = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=500, blank=True)
@@ -20,6 +21,7 @@ class Project(models.Model):
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
+
     created_time = models.DateTimeField(editable=False, auto_now_add=True)
 
 class Contributor(models.Model):
@@ -31,6 +33,7 @@ class Contributor(models.Model):
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
+    
     project = models.ForeignKey(
         to=Project,
         on_delete=models.CASCADE,
@@ -48,6 +51,7 @@ class Issue(models.Model):
         Project,
         on_delete=models.CASCADE,
     )
+
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

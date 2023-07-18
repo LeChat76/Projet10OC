@@ -26,12 +26,15 @@ class isContributorAuthorized(BasePermission):
         print('PROJECT_AUTHOR', project_author)
         print('CURRENT_USER.id', current_user.id)
         print('USER', user)
-        return bool(Project.objects.filter(id=project_id, user=current_user).exists() and (int(user) != int(current_user.id)))
+        return bool(
+            Project.objects.filter(id=project_id, user=current_user).exists() and 
+            (int(user) != int(current_user.id))
+        )
         
 class IsIssueAuthorized(BasePermission):
 
     # check if connected user is authorized to add Issue
-    def has_objet_permission(self, request, view):
+    def has_permission(self, request, view):
         project_id = request.data.get('project')
         user = request.user
         print('PROJECT', project_id)
@@ -42,24 +45,32 @@ class IsIssueAuthorized(BasePermission):
             # check if user is author of the project
             Project.objects.filter(id=project_id, user=request.user).exists()
         )
+    
+    def has_object_permission(self, request, view, obj):
+        return bool(
+            # check if logged user is the author of the comment
+            Issue.objects.filter(user=request.user).exists()
+        )
 
 class IsCommentAuthorized(BasePermission):
 
-    def has_object_permission(self, request, view, obj):
-        comment_id = obj.id
-        issue_id = obj.issue.id
-        # print('COMMENT_ID', comment_id)
-        # print('ISSUE_ID', issue_id)
-        # test if issue_id is associated to an issue in the table
-        if Comment.objects.filter(id=comment_id).exists():
-            # if YES, collect project_id associated to the issue
-            project_id = Issue.objects.filter(id=issue_id).values('project').first()['project']
-            # print('PROJECT_ID', project_id)
-            return bool(
-                # check if "couple user-project" exist in contributor table
-                Contributor.objects.filter(project_id=project_id, user=request.user).exists() or 
-                # check if user is author of the project
-                Project.objects.filter(id=project_id, user=request.user).exists()
-            )
-        return False
+    def has_permission(self, request, view):
+        if request.method in ['GET', 'POST']:
+            print('HAS_PERM')
+        # user = request.user
+        # issue_id = request.data.get('issue')
+        # project_id = Issue.objects.filter(id=issue_id).firstprint('')
+        # return bool(
+        #     # check if user is contributor
+        #     Contributor.objects.filter(project=project_id, user=user).exists() or 
+        #     # otherwise if user is project's author
+        #     Project.objects.filter(user=request.user).exists()
+        # )
+        return True
 
+    def has_object_permission(self, request, view, obj):
+        print('HAS_OBJ')
+        # return bool(
+        #     # check if logged user is the author of the comment
+        #     Comment.objects.filter(user=request.user).exists()
+        # )

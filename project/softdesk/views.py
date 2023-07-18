@@ -74,3 +74,13 @@ class CommentViewset(ModelViewSet):
         # display only comment associated to this user
         return Comment.objects.filter(user=self.request.user)
     
+    # def get_permissions(self):
+    #     permission_classes = [IsAuthenticated, IsIssueAuthorized]
+    #     if self.action == 'DELETE':
+    #         print('DELETE')
+    #         # permission_classes = [IsAuthenticated, IsIssueAuthorized]
+    #     else:
+    #         print('PAS_DELETE')
+    #         # permission_classes = [IsAuthenticated]
+
+    #     return permission_classes
