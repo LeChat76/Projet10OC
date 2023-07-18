@@ -89,8 +89,14 @@ You can add contributor for specific user and project with **POST** method: loca
     - `project=<project:pk>`: pk of the project to which to add a user  
     - `user=<user:pk>`: pk of the user to add to the project  
 
+<img alt="create_issue" src="https://github.com/LeChat76/Projet10OC/assets/119883313/f8b641ec-5a6a-47ce-a1ae-9576195e72f9">
+
 Note : for security reason, only author of projects can add users its projects. And author can not add himself
 because already authorized on its own projects.
+
+#### Optionnals features for **contributor**  
+- **DEL** method:
+    - You can delete specific contributor: `localhost:8000/api/contributor/<int:pk>/` 
 
 ----------------------------------------------------------------------------------
 
@@ -111,6 +117,11 @@ Note : you can create issues only for project you are contributor or author
 - **GET** method:  
     - Show all issues for current user: `localhost:8000/api/issue/`  
     - Show specific issue if authorized: `localhost:8000/api/issue/<int:pk>/`  
+- **PATCH** method:
+    - You can modify specific issue if authorized: `localhost:8000/api/issue/<int:pk>/` 
+        - field you can modify : __priority__, __title__, __description__, __type__ and __statut__
+- **DEL** method:
+    - You can delete specific issue if authorized: `localhost:8000/api/issue/<int:pk>/` 
 
 ----------------------------------------------------------------------------------
 
@@ -120,11 +131,16 @@ Note : you can create comments only for project you are contributor or author
     - `issue=<issue_id>`: issue ID to associate comment with
     - `description=<description>`: description of the project(500 characters max)
 
-<img alt="create_issue" src="https://github.com/LeChat76/Projet10OC/assets/119883313/cc81f63e-0e38-49ef-b7ae-e0720c22f7ac">
+<img alt="create_comment" src="https://github.com/LeChat76/Projet10OC/assets/119883313/cc81f63e-0e38-49ef-b7ae-e0720c22f7ac">
 
 #### Optionnals features for **comment**  
 - **GET** method:  
     - Show all comments for current user: `localhost:8000/api/comment/`  
     - Show specific comment if authorized: `localhost:8000/api/comment/<int:pk>/`  
+- **PATCH** method:
+    - You can modify specific comment if authorized: `localhost:8000/api/comment/<int:pk>/`  
+        - field you can modify : __description__
+- **DEL** method:
+    - Delete specific comment if authorized: `localhost:8000/api/comment/<int:pk>/` 
 
 ----------------------------------------------------------------------------------
