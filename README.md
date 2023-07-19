@@ -17,6 +17,8 @@ API creation with __Django Rest Framework__
 * Go in the folder of the projet: `cd project`  
 * And run the webserver: `python manage.py runserver`  
 
+**Note: dependabot is enabled on this project. A pull request will be automatically created if a security flaw is discovered. This way, dependencies will always be secure.**
+
 ## Utilisation
 The API provides the following endpoints.
 All endpoints have been tested with Postman.
@@ -52,7 +54,8 @@ All endpoints have been tested with Postman.
 
 <img alt="rgpd" src="https://github.com/LeChat76/Projet10OC/assets/119883313/1cf0bf05-38a8-4652-a24f-d78e096e13e7">   
 
-- Delete specific user with **DEL** method: `localhost:8000/api/user/<int:pk>/`
+- Delete specific user with **DEL** method: `localhost:8000/api/user/<int:pk>/`  
+<font color="red">RGPD rules require that a deleted user also deletes all traces of his activity SO all projects, issues and comments he has created will be deleted.</font>
 
 ----------------------------------------------------------------------------------
 
@@ -80,6 +83,7 @@ Note : for better project management, identical titles are refused
 #### Optionnals features for **project**:
 - **GET** method:
     - Show project(s) for current user: `localhost:8000/api/project/`  
+    <font color="red">To respect <font color="green">"green coding"</font>, result of this request will display minimal informations, for detailed informations, show specific project bellow</font>
     - Show specific project if author: `localhost:8000/api/project/<int:pk>/`  
 - **DEL** method (when deleting project, delation of record in contributor table by cascade):  
     - Delete specific project if author: `localhost:8000/api/project/<int:pk>/`  
@@ -121,6 +125,7 @@ Note : you can create issues only for project you are contributor or author
 #### Optionnals features for **issue**:  
 - **GET** method:  
     - Show all issues for current user: `localhost:8000/api/issue/`  
+    <font color="red">To respect <font color="green">"green coding"</font>, result of this request will display minimal informations, for detailed informations, show specific issue bellow</font>
     - Show specific issue if authorized: `localhost:8000/api/issue/<int:pk>/`  
 - **PATCH** method:
     - You can modify specific issue if authorized: `localhost:8000/api/issue/<int:pk>/` 
@@ -141,6 +146,7 @@ Note : you can create comments only for project you are contributor or author
 #### Optionnals features for **comment**:  
 - **GET** method:  
     - Show all comments for current user: `localhost:8000/api/comment/`  
+    <font color="red">To respect <font color="green">"green coding"</font>, result of this request will display minimal informations, for detailed informations, show specific comment bellow</font>
     - Show specific comment if authorized: `localhost:8000/api/comment/<int:pk>/`  
 - **PATCH** method:
     - You can modify specific comment if authorized: `localhost:8000/api/comment/<int:pk>/`  

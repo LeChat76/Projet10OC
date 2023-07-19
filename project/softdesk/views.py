@@ -2,7 +2,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from .models import Contributor, Project, Issue, Comment
-from .serializers import ContributorSerializer, ProjectSerializer, IssueSerializer, CommentSerializer
+from .serializers import ProjectListSerializer, ProjectDetailSerializer
+from .serializers import ContributorSerializer
+from .serializers import IssueListSerializer, IssueDetailSerializer
+from .serializers import CommentListSerializer, CommentDetailSerializer
 from .permissions import IsIssueAuthorized, isContributorAuthorized, IsCommentAuthorized
 
 
@@ -19,29 +22,45 @@ class ContributorViewset(ModelViewSet):
 class ProjectViewset(ModelViewSet):
      
     permission_classes = [IsAuthenticated]
-    serializer_class = ProjectSerializer
 
     def get_queryset(self):
         # display only project(s) associated to the authenticated user
         user=self.request.user
         return Project.objects.filter(user=user)
-   
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return ProjectListSerializer
+        else:
+            return ProjectDetailSerializer
+
+
 class IssueViewset(ModelViewSet):
 
     permission_classes = [IsAuthenticated, IsIssueAuthorized]
-    serializer_class = IssueSerializer
 
     def get_queryset(self):
         # display only issue(s) associated to the authenticated user
         user=self.request.user
         return Issue.objects.filter(user=user)
     
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return IssueListSerializer
+        else:
+            return IssueDetailSerializer
+    
 class CommentViewset(ModelViewSet):
     
     permission_classes = [IsAuthenticated, IsCommentAuthorized]
-    serializer_class = CommentSerializer
 
     def get_queryset(self):
         # display only comment(s) associated to the authenticated user
         user=self.request.user
         return Comment.objects.filter(user=user)
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return CommentListSerializer
+        else:
+            return CommentDetailSerializer
