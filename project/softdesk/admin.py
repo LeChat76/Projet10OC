@@ -8,7 +8,7 @@ class ProjectAdmin(admin.ModelAdmin):
         'type',
         'description',
         'user',
-        'created_time'
+        'created_time',
     )
 
 class ContributorAdmin(admin.ModelAdmin):

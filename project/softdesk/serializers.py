@@ -6,8 +6,6 @@ from softdesk.models import Contributor, Project, Issue, Comment
 
 class ProjectListSerializer(ModelSerializer):
 
-    # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
     class Meta:
         model = Project
         fields = [
@@ -41,8 +39,6 @@ class ContributorSerializer(ModelSerializer):
 
 class IssueListSerializer(ModelSerializer):
 
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    
     class Meta:
         model = Issue
         fields = [
@@ -69,13 +65,10 @@ class IssueDetailSerializer(ModelSerializer):
 
 class CommentListSerializer(ModelSerializer):
 
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
     class Meta:
         model = Comment
         fields = [
             'id',
-            'user',
             'description',
         ]
 

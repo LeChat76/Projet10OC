@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
-
+import uuid
 
 class Project(models.Model):
 
@@ -20,7 +20,7 @@ class Project(models.Model):
     type = models.CharField(max_length=10, choices=TYPES_PROJECT)
     title = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=500, blank=True)
-    created_time = models.DateTimeField(editable=False, default=timezone.now)
+    created_time = models.DateTimeField(default=timezone.now)
 
 class Contributor(models.Model):
 
@@ -71,7 +71,7 @@ class Issue(models.Model):
     description = models.CharField(max_length=500, blank=True)
     type = models.CharField(max_length=7, choices=TYPES_TYPE)
     statut = models.CharField(default='todo', max_length=11, choices=TYPES_STATUT)
-    created_time = models.DateTimeField(editable=False, default=timezone.now)
+    created_time = models.DateTimeField(default=timezone.now)
 
     class Meta:
         unique_together = ('title', 'project')
@@ -86,7 +86,8 @@ class Comment(models.Model):
         Issue,
         on_delete=models.CASCADE,
     )
-    created_time = models.DateTimeField(editable=False, default=timezone.now)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    created_time = models.DateTimeField(default=timezone.now)
 
     class Meta:
         unique_together = ('user', 'description')
