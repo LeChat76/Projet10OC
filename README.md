@@ -83,7 +83,8 @@ Note : for better project management, identical titles are refused
 #### Optionnals features for **project**:
 - **GET** method:
     - Show project(s) for current user: `localhost:8000/api/project/`  
-    <font color="red">To respect <font color="green">"green coding"</font>, result of this request will display minimal informations, for detailed informations, show specific project bellow</font>
+    <span style="color:red">Note : to respect <span style="color:green">"green coding"</span>, result of this request will display minimal informations, for detailed informations, show specific project bellow</span>
+
     - Show specific project if author: `localhost:8000/api/project/<int:pk>/`  
 - **DEL** method (when deleting project, delation of record in contributor table by cascade):  
     - Delete specific project if author: `localhost:8000/api/project/<int:pk>/`  
@@ -125,7 +126,7 @@ Note : you can create issues only for project you are contributor or author
 #### Optionnals features for **issue**:  
 - **GET** method:  
     - Show all issues for current user: `localhost:8000/api/issue/`  
-    <font color="red">To respect <font color="green">"green coding"</font>, result of this request will display minimal informations, for detailed informations, show specific issue bellow</font>
+    <font color="red">Note : to respect <font color="green">"green coding"</font>, result of this request will display minimal informations, for detailed informations, show specific issue bellow</font>
     - Show specific issue if authorized: `localhost:8000/api/issue/<int:pk>/`  
 - **PATCH** method:
     - You can modify specific issue if authorized: `localhost:8000/api/issue/<int:pk>/` 
@@ -146,7 +147,7 @@ Note : you can create comments only for project you are contributor or author
 #### Optionnals features for **comment**:  
 - **GET** method:  
     - Show all comments for current user: `localhost:8000/api/comment/`  
-    <font color="red">To respect <font style='color : green'>"green coding"</font>, result of this request will display minimal informations, for detailed informations, show specific comment bellow</font>
+    <font color="red">Note : to respect <font color="green">"green coding"</font>, result of this request will display minimal informations, for detailed informations, show specific comment bellow</font>
     - Show specific comment if authorized: `localhost:8000/api/comment/<int:pk>/`  
 - **PATCH** method:
     - You can modify specific comment if authorized: `localhost:8000/api/comment/<int:pk>/`  
