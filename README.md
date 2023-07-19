@@ -41,11 +41,14 @@ All endpoints have been tested with Postman.
 
 ### <font color="red">RGPD rules:</font>
 - Modify `can_be_contacted` and `can_data_be_shared` and all others field with **PATCH** method: `localhost:8000/api/user/<int:pk>/`
+* mandatory body options:  
+    - `password=<password>`: to modify password (<font color="red">password is mandatory even empty because hashed in any cases</font>)
+* optionnals body options: 
     - `username=<username>`: to modify username  
-    - `can_be_contacted=<1 or O>` to modify 'can_be_contacted' field  
-    - `can_data_be_shared=<1 or O>`  to modify 'can_data_be_shared' field  
-    - `password=<password>`: to modify password  
     - `birthday=<birthday>`: to modify birthday, format dd-mm-yyyy (less than 15 years old will be rejected)  
+    - `can_be_contacted=<1 or O>` to modify 'can_be_contacted' field 
+    - `can_data_be_shared=<1 or O>`  to modify 'can_data_be_shared' field  
+
 
 <img alt="rgpd" src="https://github.com/LeChat76/Projet10OC/assets/119883313/1cf0bf05-38a8-4652-a24f-d78e096e13e7">   
 
@@ -63,7 +66,7 @@ All endpoints have been tested with Postman.
 ----------------------------------------------------------------------------------
 
 ### 3 - create project with **POST** method: `localhost:8000/api/project/`
-<font color="red">**At this point, all request without Token will be rejected**</font>
+<font color="red">At this point, all request without Token will be rejected</font>
 * mandatory body options:
     - `type=<backend, frontend, ios, android>`: select type of project
     - `title=<title>`: title of this project(100 characters max)
