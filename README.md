@@ -146,7 +146,7 @@ Note : you can create comments only for project you are contributor or author
 #### Optionnals features for **comment**:  
 - **GET** method:  
     - Show all comments for current user: `localhost:8000/api/comment/`  
-    <font color="red">To respect <font color="green">"green coding"</font>, result of this request will display minimal informations, for detailed informations, show specific comment bellow</font>
+    <font color="red">To respect <span style="color: #26B260">"green coding"</span>, result of this request will display minimal informations, for detailed informations, show specific comment bellow</font>
     - Show specific comment if authorized: `localhost:8000/api/comment/<int:pk>/`  
 - **PATCH** method:
     - You can modify specific comment if authorized: `localhost:8000/api/comment/<int:pk>/`  
