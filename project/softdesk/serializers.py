@@ -2,7 +2,8 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 
 from softdesk.models import Contributor, Project, Issue, Comment
- 
+
+
 class ProjectSerializer(ModelSerializer):
 
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
@@ -10,6 +11,7 @@ class ProjectSerializer(ModelSerializer):
     class Meta:
         model = Project
         fields = [
+            'id',
             'user',
             'id',
             'type',
@@ -33,6 +35,7 @@ class IssueSerializer(ModelSerializer):
     class Meta:
         model = Issue
         fields = [
+            'id',
             'title',
             'description',
             'type',
@@ -49,6 +52,7 @@ class CommentSerializer(ModelSerializer):
     class Meta:
         model = Comment
         fields = [
+            'id',
             'user',
             'id',
             'issue',

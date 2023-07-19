@@ -87,7 +87,7 @@ Note : for better project management, identical titles are refused
 ----------------------------------------------------------------------------------
 
 ### 4 - Manage contributor with **POST** method: `localhost:8000/api/contributor/`
-You can add contributor for specific user and project with **POST** method: localhost:8000/api/contributor/  
+You can add contributor for specific user and project:  
 * mandatory body options:  
     - `project=<project:pk>`: pk of the project to which to add a user  
     - `user=<user:pk>`: pk of the user to add to the project  

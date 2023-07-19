@@ -12,18 +12,17 @@ class Users(AbstractUser):
 
     # disable fields not needed in this project
     email, first_name, last_name, last_login = None, None, None, None
-
     username = models.CharField(
         max_length = 20,
         unique = True,
     )
-    date_joined = models.DateTimeField(default=timezone.now)
+    date_joined = models.DateTimeField(editable=False, default=timezone.now)
     birthday = models.DateField(default=None)
     can_be_contacted = models.BooleanField(default=False)
     can_data_be_shared = models.BooleanField(default=False)
 
-def hash_password(sender, instance, **kwargs):
-    if instance.password:
+def hash_password(instance, **kwargs):
+    if 'password' in instance.__dict__:
         instance.password = make_password(instance.password)
 
 pre_save.connect(hash_password, sender=Users)

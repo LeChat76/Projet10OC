@@ -3,7 +3,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from .models import Contributor, Project, Issue, Comment
 from .serializers import ContributorSerializer, ProjectSerializer, IssueSerializer, CommentSerializer
-from .permissions import IsIssueAuthorized, isContributorAuthorized, IsProjectAuthorized, IsCommentAuthorized
+from .permissions import IsIssueAuthorized, isContributorAuthorized, IsCommentAuthorized
 
 
 class ContributorViewset(ModelViewSet):
@@ -18,14 +18,14 @@ class ContributorViewset(ModelViewSet):
 
 class ProjectViewset(ModelViewSet):
      
-    permission_classes = [IsAuthenticated, IsProjectAuthorized]
+    permission_classes = [IsAuthenticated]
     serializer_class = ProjectSerializer
 
     def get_queryset(self):
         # display only project(s) associated to the authenticated user
         user=self.request.user
         return Project.objects.filter(user=user)
-    
+   
 class IssueViewset(ModelViewSet):
 
     permission_classes = [IsAuthenticated, IsIssueAuthorized]
