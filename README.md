@@ -90,7 +90,7 @@ Note : for better project management, identical titles are refused
     - Delete specific project if author: `localhost:8000/api/project/<int:pk>/`  
 - **PATCH** method:  
     - modify project if author: `localhost:8000/api/project/<int:pk>/`  
-
+ 
 ----------------------------------------------------------------------------------
 
 ### 4 - Manage contributor with **POST** method: `localhost:8000/api/contributor/`
