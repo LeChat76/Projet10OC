@@ -79,10 +79,12 @@ Note : for better project management, identical titles are refused
 
 #### Optionnals features for **project**:
 - **GET** method:
-    - Show project(s) for current user: `localhost:8000/api/project/`
-    - Show specific project if author: `localhost:8000/api/project/<int:pk>/`
-- **DEL** method (when deleting project, delation of record in contributor table by cascade):
-    - Delete specific project if author: `localhost:8000/api/project/<int:pk>/`
+    - Show project(s) for current user: `localhost:8000/api/project/`  
+    - Show specific project if author: `localhost:8000/api/project/<int:pk>/`  
+- **DEL** method (when deleting project, delation of record in contributor table by cascade):  
+    - Delete specific project if author: `localhost:8000/api/project/<int:pk>/`  
+- **PATCH** method:  
+    - modify project if author: `localhost:8000/api/project/<int:pk>/`  
 
 ----------------------------------------------------------------------------------
 
