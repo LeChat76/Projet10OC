@@ -66,7 +66,7 @@ All endpoints have been tested with Postman.
 ----------------------------------------------------------------------------------
 
 ### 3 - create project with **POST** method: `localhost:8000/api/project/`
-<font color="red">At this point, all request without Token will be rejected</font>
+<font color="red">**At this point, all request without Token will be rejected**</font>
 * mandatory body options:
     - `type=<backend, frontend, ios, android>`: select type of project
     - `title=<title>`: title of this project(100 characters max)
