@@ -10,7 +10,7 @@ router = routers.SimpleRouter()
 router.register('user', UserViewset, basename='user')
 router.register('contributor', ContributorViewset, basename='contributor')
 router.register('project', ProjectViewset, basename='project')
-router.register(r'project/(?P<project_pk>\d+)/issue', ProjectIssueViewset, basename='project_issue')
+router.register('project/(?P<project_pk>\d+)/issue', ProjectIssueViewset, basename='project_issue')
 router.register('issue', IssueViewset, basename='issue')
 router.register('comment', CommentViewset, basename='comment')
 

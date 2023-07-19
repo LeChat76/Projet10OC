@@ -66,7 +66,7 @@ class IssueViewset(ModelViewSet):
             issue_id = self.kwargs['pk']
         except:
             return Issue.objects.filter(user=user)          
-        print('ISSUE_ID', issue_id)
+        # print('ISSUE_ID', issue_id)
         try:
             project_id = Issue.objects.filter(id=issue_id).values('project').first()['project']
         except:
