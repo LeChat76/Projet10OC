@@ -18,7 +18,9 @@ class ContributorViewset(ModelViewSet):
     def get_queryset(self):
         # display only projet(s) I'm contributor
         user = self.request.user
-        return Contributor.objects.filter(user=user)
+        projects = Project.objects.filter(user=user)
+        # print('PROJECT_ID', projects)
+        return Contributor.objects.filter(project__in=projects)
 
 class ProjectViewset(ModelViewSet):
      
@@ -37,16 +39,13 @@ class ProjectViewset(ModelViewSet):
 
 class ProjectIssueViewset(ModelViewSet):
 
-    permission_classes = [IsAuthenticated, IsIssueAuthorized]
-    serializer_classes = [IssueDetailSerializer]
+    permission_classes = [IsAuthenticated, IsProjectIssueCommentAuthorized]
+    serializer_class = IssueDetailSerializer
 
     def get_queryset(self):
-        user = self.request.user
+        # user = self.request.user
         project_id = self.kwargs['project_pk']
-        if Contributor.objects.filter(user=user, project=project_id) or Project.objects.filter(user=user, id=project_id):
-            issues_list = Issue.objects.filter(project=project_id)
-        else:
-            issues_list = None
+        issues_list = Issue.objects.filter(project=project_id)
         return issues_list
     
     def list(self, request, project_pk=None):
@@ -60,18 +59,18 @@ class ProjectIssueCommentViewset(ModelViewSet):
     serializer_class = CommentDetailSerializer
 
     def get_queryset(self):
-        user = self.request.user
-        print('USER_VIEW', user)
+        # user = self.request.user
+        # print('USER_VIEW', user)
         project_id = self.kwargs['project_pk']
-        print('PROJECT_ID_VIEW', project_id)
+        # print('PROJECT_ID_VIEW', project_id)
         issue_id = self.kwargs['issue_pk']
-        print('ISSUE_ID_VIEW', issue_id)
+        # print('ISSUE_ID_VIEW', issue_id)
         comment_list = []
         if Issue.objects.filter(id=issue_id, project=project_id):
             if Comment.objects.filter(issue=issue_id):
-                print('TOP2_VIEW')
+                # print('TOP2_VIEW')
                 comment_list = Comment.objects.filter(issue=issue_id)
-            print('COMMENT_LIST_VIEW', comment_list)
+            # print('COMMENT_LIST_VIEW', comment_list)
         return comment_list
 
 class IssueViewset(ModelViewSet):
@@ -84,17 +83,10 @@ class IssueViewset(ModelViewSet):
         try: 
             issue_id = self.kwargs['pk']
         except:
-            return Issue.objects.filter(user=user)          
-        # print('ISSUE_ID', issue_id)
-        try:
-            project_id = Issue.objects.filter(id=issue_id).values('project').first()['project']
-        except:
-            return None
-        # print('PROJECT_ID', project_id)
-        if Contributor.objects.filter(user=user, project=project_id).exists() or Project.objects.filter(user=user, id=project_id):
-            return Issue.objects.filter(id=issue_id)
-        else:
-            return None
+            return Issue.objects.filter(user=user)
+        
+        return Issue.objects.filter(id=issue_id)
+
     
     def get_serializer_class(self):
         if self.action == 'list':
