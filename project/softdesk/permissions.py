@@ -61,14 +61,14 @@ class IsIssueAuthorized(BasePermission):
     def has_object_permission(self, request, view, obj):
         user = request.user
         project_id = obj.project.id
-        if request.method in ['GET', 'PATCH']:
+        if request.method in ['GET']:
             return bool(
                 # check if authenticated user is contributor of this project
                 Contributor.objects.filter(project=project_id, user=user).exists() or 
                 # otherwise if authenticated user is project's author
                 Project.objects.filter(id=project_id, user=user).exists()
             )
-        elif request.method == 'DELETE':
+        elif request.method in ['DELETE', 'PATCH']:
             issue_id = view.kwargs['pk']
             return bool(Issue.objects.filter(user=user, id=issue_id).exists())
 
