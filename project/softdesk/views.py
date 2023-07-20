@@ -7,7 +7,7 @@ from .serializers import ProjectListSerializer, ProjectDetailSerializer
 from .serializers import ContributorSerializer
 from .serializers import IssueListSerializer, IssueDetailSerializer
 from .serializers import CommentListSerializer, CommentDetailSerializer
-from .permissions import IsIssueAuthorized, isContributorAuthorized, IsCommentAuthorized, IsProjectIssueCommentAuthorized
+from .permissions import IsIssueAuthorized, isContributorAuthorized, IsCommentAuthorized, IsProjectIssueCommentAuthorized, IsProjectAuthorized
 
 
 class ContributorViewset(ModelViewSet):
@@ -16,7 +16,7 @@ class ContributorViewset(ModelViewSet):
     serializer_class = ContributorSerializer
 
     def get_queryset(self):
-        # display only projet(s) I'm contributor
+        # display list of contributors of my projects
         user = self.request.user
         projects = Project.objects.filter(user=user)
         # print('PROJECT_ID', projects)
@@ -24,11 +24,15 @@ class ContributorViewset(ModelViewSet):
 
 class ProjectViewset(ModelViewSet):
      
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated ,IsProjectAuthorized]
 
     def get_queryset(self):
         user=self.request.user
-        return Project.objects.filter(user=user)
+        try:
+            project_id = self.kwargs['pk']
+        except:
+            return Project.objects.filter(user=user)
+        return Project.objects.filter(id=project_id)
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -102,7 +106,7 @@ class CommentViewset(ModelViewSet):
         user=self.request.user
         try:
             comment_id = self.kwargs['pk']
-        #     print('COMMENT_ID', comment_id)
+            print('COMMENT_ID', comment_id)
         except:
             return Comment.objects.filter(user=user)
 

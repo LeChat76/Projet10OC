@@ -82,14 +82,14 @@ Note : for better project management, identical titles are refused
 
 #### Optionnals features for **project**:
 - **GET** method:
-    - Show project(s) for current user: `localhost:8000/api/project/`  
-    <span style="color:red">Note : to respect <span style="color:green">"green coding"</span>, result of this request will display minimal informations, for detailed informations, show specific project bellow</span>
-
-    - Show specific project if author: `localhost:8000/api/project/<int:pk>/`  
+    <span style="color:red">Note : to respect <span style="color:green">"green coding"</span>, result of this request will display minimal informations, for detailed informations, show specific project with second request</span>
+    - Show project(s) created by authenticated user: `localhost:8000/api/project/`  
+    - Show specific project if author or contributor: `localhost:8000/api/project/<int:pk>/`  
 - **DEL** method (when deleting project, delation of record in contributor table by cascade):  
     - Delete specific project if author: `localhost:8000/api/project/<int:pk>/`  
 - **PATCH** method:  
     - modify project if author: `localhost:8000/api/project/<int:pk>/`  
+        - field you can modify : description, title and __type__  
  
 ----------------------------------------------------------------------------------
 
@@ -105,6 +105,8 @@ Note : for security reason, only author of projects can add users its projects. 
 because already authorized on its own projects.
 
 #### Optionnals features for **contributor**:  
+- **GET** method:
+    - Show all contributors for all projects you are author: `localhost:8000/api/contributor/`
 - **DEL** method:
     - You can delete specific contributor: `localhost:8000/api/contributor/<int:pk>/` 
 

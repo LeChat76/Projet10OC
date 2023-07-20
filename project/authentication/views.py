@@ -8,7 +8,6 @@ from .serializers import UserSerializer
 
 class UserViewset(ModelViewSet):
 
-    # permission_classes = [IsUserAuthorized]
     serializer_class = UserSerializer
 
     def get_queryset(self):
@@ -19,7 +18,7 @@ class UserViewset(ModelViewSet):
         serializer = self.get_serializer(instance, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
 
-        # check if password provided
+        # check if password is provided
         if 'password' not in serializer.validated_data:
             raise ValidationError("Le mot de passe est obligatoire.")
 

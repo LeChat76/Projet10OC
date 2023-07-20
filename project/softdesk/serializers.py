@@ -22,7 +22,6 @@ class ProjectDetailSerializer(ModelSerializer):
         fields = [
             'id',
             'user',
-            'id',
             'type',
             'title',
             'description',
@@ -33,6 +32,7 @@ class ContributorSerializer(ModelSerializer):
     class Meta:
         model = Contributor
         fields = [
+            'id',
             'project',
             'user',
         ]

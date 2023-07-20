@@ -1,7 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 from datetime import date
-from .models import hash_password
 
 from .constantes import MIN_AGE
 from authentication.models import Users

@@ -35,6 +35,7 @@ class Contributor(models.Model):
         to=Project,
         on_delete=models.CASCADE,
     )
+    created_time = models.DateTimeField(default=timezone.now)
     class Meta:
         unique_together = ('user', 'project')
 
