@@ -42,7 +42,8 @@ All endpoints have been tested with Postman.
     - Show specific user: `localhost:8000/api/user/<int:pk>/`
 
 ### <font color="red">RGPD rules:</font>
-- **PATCH** method: `localhost:8000/api/user/<int:pk>/`
+- **PATCH** method:
+    - Modify specif user: `localhost:8000/api/user/<int:pk>/`
     * mandatory body options:  
         - `password=<password>`: to modify password (<font color="red">password is mandatory even empty because hashed in any cases</font>)
     * optionnals body options: 
@@ -50,7 +51,6 @@ All endpoints have been tested with Postman.
         - `birthday=<birthday>`: to modify birthday, format dd-mm-yyyy (less than 15 years old will be rejected)  
         - `can_be_contacted=<1 or O>` to modify 'can_be_contacted' field 
         - `can_data_be_shared=<1 or O>`  to modify 'can_data_be_shared' field  
-
 
 <img alt="rgpd" src="https://github.com/LeChat76/Projet10OC/assets/119883313/1cf0bf05-38a8-4652-a24f-d78e096e13e7">   
 
@@ -89,7 +89,7 @@ Note : for better project management, identical titles are refused
     - Delete specific project if author: `localhost:8000/api/project/<int:pk>/`  
 - **PATCH** method:  
     - modify project if author: `localhost:8000/api/project/<int:pk>/`  
-        - field you can modify : description, title and __type__  
+        - field you can modify : __description__, __title__ and __type__  
  
 ----------------------------------------------------------------------------------
 
