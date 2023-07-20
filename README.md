@@ -88,7 +88,7 @@ Note : for better project management, identical titles are refused
 - **DEL** method (when deleting project, delation of record in contributor table by cascade):  
     - Delete specific project if author: `localhost:8000/api/project/<int:pk>/`  
 - **PATCH** method:  
-    - modify project if author: `localhost:8000/api/project/<int:pk>/`  
+    - modify specific project if author: `localhost:8000/api/project/<int:pk>/`  
         - field you can modify : __description__, __title__ and __type__  
  
 ----------------------------------------------------------------------------------
@@ -132,10 +132,10 @@ Note : you can create issues only for project you are contributor or author
     - Show issue(s) associated to an project you are contributor or author: `localhost:8000/api/project/<int:pk>/issue/`  
     - Show specific issue if you are contributor or author: `localhost:8000/api/issue/<int:pk>/`  
 - **PATCH** method:
-    - You can modify specific issue if you are contributor or author: `localhost:8000/api/issue/<int:pk>/` 
+    - You can modify specific issue only if you are author: `localhost:8000/api/issue/<int:pk>/` 
         - field you can modify : __priority__, __title__, __description__, __type__ and __statut__
 - **DEL** method:
-    - You can delete specific issue if only if you are the author: `localhost:8000/api/issue/<int:pk>/` 
+    - You can delete specific issue only if you are the author: `localhost:8000/api/issue/<int:pk>/` 
 
 ----------------------------------------------------------------------------------
 
@@ -154,7 +154,7 @@ Note : you can create comments only for project you are contributor or author
     - Show comment(s) associated to an project you are contributor or author: `localhost:8000/api/project/<int:pk>/issue/<int:pk>/comment/`  
     - Show specific comment if you are contributor or author: `localhost:8000/api/comment/<int:pk>/`  
 - **PATCH** method:
-    - You can modify specific comment if you are contributor or author: `localhost:8000/api/comment/<int:pk>/`  
+    - You can modify specific comment only if you are author: `localhost:8000/api/comment/<int:pk>/`  
         - field you can modify : __description__
 - **DEL** method:
     - Delete specific comment only if you are the author: `localhost:8000/api/comment/<int:pk>/` 
