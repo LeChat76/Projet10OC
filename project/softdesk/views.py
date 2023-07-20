@@ -7,7 +7,7 @@ from .serializers import ProjectListSerializer, ProjectDetailSerializer
 from .serializers import ContributorSerializer
 from .serializers import IssueListSerializer, IssueDetailSerializer
 from .serializers import CommentListSerializer, CommentDetailSerializer
-from .permissions import IsIssueAuthorized, isContributorAuthorized, IsCommentAuthorized
+from .permissions import IsIssueAuthorized, isContributorAuthorized, IsCommentAuthorized, IsProjectIssueCommentAuthorized
 
 
 class ContributorViewset(ModelViewSet):
@@ -25,7 +25,6 @@ class ProjectViewset(ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        # display only project(s) associated to the authenticated user
         user=self.request.user
         return Project.objects.filter(user=user)
 
@@ -44,7 +43,7 @@ class ProjectIssueViewset(ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         project_id = self.kwargs['project_pk']
-        if Contributor.objects.filter(user=user, project=project_id).exists() or Project.objects.filter(user=user, id=project_id):
+        if Contributor.objects.filter(user=user, project=project_id) or Project.objects.filter(user=user, id=project_id):
             issues_list = Issue.objects.filter(project=project_id)
         else:
             issues_list = None
@@ -54,6 +53,26 @@ class ProjectIssueViewset(ModelViewSet):
         issues = self.get_queryset()
         serializer = IssueListSerializer(issues, many=True)
         return Response(serializer.data)
+
+class ProjectIssueCommentViewset(ModelViewSet):
+    
+    permission_classes = [IsAuthenticated, IsProjectIssueCommentAuthorized]
+    serializer_class = CommentDetailSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        print('USER_VIEW', user)
+        project_id = self.kwargs['project_pk']
+        print('PROJECT_ID_VIEW', project_id)
+        issue_id = self.kwargs['issue_pk']
+        print('ISSUE_ID_VIEW', issue_id)
+        comment_list = []
+        if Issue.objects.filter(id=issue_id, project=project_id):
+            if Comment.objects.filter(issue=issue_id):
+                print('TOP2_VIEW')
+                comment_list = Comment.objects.filter(issue=issue_id)
+            print('COMMENT_LIST_VIEW', comment_list)
+        return comment_list
 
 class IssueViewset(ModelViewSet):
 
@@ -88,9 +107,15 @@ class CommentViewset(ModelViewSet):
     permission_classes = [IsAuthenticated, IsCommentAuthorized]
 
     def get_queryset(self):
-        # display only comment(s) associated to the authenticated user
         user=self.request.user
-        return Comment.objects.filter(user=user)
+        try:
+            comment_id = self.kwargs['pk']
+        #     print('COMMENT_ID', comment_id)
+        except:
+            return Comment.objects.filter(user=user)
+
+        return Comment.objects.filter(id=comment_id) 
+
 
     def get_serializer_class(self):
         if self.action == 'list':

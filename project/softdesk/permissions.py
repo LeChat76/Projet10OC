@@ -62,32 +62,45 @@ class IsIssueAuthorized(BasePermission):
 class IsCommentAuthorized(BasePermission):
 
     def has_permission(self, request, view):
-        if request.method == 'POST':
+        if request.method in ['POST', 'GET']:
             user=request.user
-            print('USER', user)
+            print('USER_PERM', user)
             issue_id = request.data.get('issue')
-            print('ISSUE_ID', issue_id)
+            # print('ISSUE_ID_PERM', issue_id)
             if Issue.objects.filter(id=issue_id).exists():
                 project_id = Issue.objects.filter(id=issue_id).values('project').first()['project']
-                print('PROJECT_ID', project_id)
+                # print('PROJECT_ID_PERM', project_id)
                 return bool(
                     # check if authenticated user is contributor of this project
                     Contributor.objects.filter(project=project_id, user=user).exists() or 
                     # otherwise if authenticated user is project's author
                     Project.objects.filter(id=project_id, user=user).exists()
                 )
-
         return True
     
     def has_object_permission(self, request, view, obj):
         if request.method in ['DELETE', 'GET', 'PATCH']:
             user = request.user
+            print('USER_OBJ_PERM', user)
             issue_id = obj.issue.id
+            print('ISSUE_ID_OBJ_PERM', issue_id)
             project_id = Issue.objects.filter(id=issue_id).values('project').first()['project']
+            print('PROJECT_ID_OBJ_PERM', project_id)
             return bool(
                 # check if authenticated user is contributor of this project
                 Contributor.objects.filter(project=project_id, user=user).exists() or 
                 # otherwise if authenticated user is project's author
                 Project.objects.filter(id=project_id, user=user).exists()
             )
-        
+
+class IsProjectIssueCommentAuthorized(BasePermission):
+    
+    def has_permission(self, request, view):
+        user=request.user
+        project_id = view.kwargs['project_pk']
+        return bool(
+            # check if authenticated user is contributor of this project
+            Contributor.objects.filter(project=project_id, user=user).exists() or 
+            # otherwise if authenticated user is project's author
+            Project.objects.filter(id=project_id, user=user).exists()
+        )
