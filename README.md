@@ -127,7 +127,7 @@ Note : you can create issues only for project you are contributor or author
 - **GET** method:  
     <font color="red">Note : to respect <font color="green">"green coding"</font>, result of the first two requests will display minimal informations, for detailed informations, show specific issue with third request</font>  
     - Show all issues for current user: `localhost:8000/api/issue/`  
-    - Show issues associated to an project you are contributor or author: `localhost:8000/api/project<int:pk>/issue/`  
+    - Show issue(s) associated to an project you are contributor or author: `localhost:8000/api/project/<int:pk>/issue/`  
     - Show specific issue if authorized: `localhost:8000/api/issue/<int:pk>/`  
 - **PATCH** method:
     - You can modify specific issue if authorized: `localhost:8000/api/issue/<int:pk>/` 
@@ -147,8 +147,9 @@ Note : you can create comments only for project you are contributor or author
 
 #### Optionnals features for **comment**:  
 - **GET** method:  
+    <font color="red">Note : to respect <font color="green">"green coding"</font>, result of the first two requests will display minimal informations, for detailed informations, show specific comment with third request</font>  
     - Show all comments for current user: `localhost:8000/api/comment/`  
-    <font color="red">Note : to respect <font color="green">"green coding"</font>, result of this request will display minimal informations, for detailed informations, show specific comment bellow</font>
+    - Show comment(s) associated to an project you are contributor or author: `localhost:8000/api/project/<int:pk>/issue/<int:pk>/comment/`  
     - Show specific comment if authorized: `localhost:8000/api/comment/<int:pk>/`  
 - **PATCH** method:
     - You can modify specific comment if authorized: `localhost:8000/api/comment/<int:pk>/`  
