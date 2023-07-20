@@ -126,14 +126,14 @@ Note : you can create issues only for project you are contributor or author
 #### Optionnals features for **issue**:  
 - **GET** method:  
     <font color="red">Note : to respect <font color="green">"green coding"</font>, result of the first two requests will display minimal informations, for detailed informations, show specific issue with third request</font>  
-    - Show all issues for current user: `localhost:8000/api/issue/`  
+    - Show all issues authenticated user created: `localhost:8000/api/issue/`  
     - Show issue(s) associated to an project you are contributor or author: `localhost:8000/api/project/<int:pk>/issue/`  
-    - Show specific issue if authorized: `localhost:8000/api/issue/<int:pk>/`  
+    - Show specific issue if you are contributor or author: `localhost:8000/api/issue/<int:pk>/`  
 - **PATCH** method:
-    - You can modify specific issue if authorized: `localhost:8000/api/issue/<int:pk>/` 
+    - You can modify specific issue if you are contributor or author: `localhost:8000/api/issue/<int:pk>/` 
         - field you can modify : __priority__, __title__, __description__, __type__ and __statut__
 - **DEL** method:
-    - You can delete specific issue if authorized: `localhost:8000/api/issue/<int:pk>/` 
+    - You can delete specific issue if only if you are the author: `localhost:8000/api/issue/<int:pk>/` 
 
 ----------------------------------------------------------------------------------
 
@@ -148,13 +148,13 @@ Note : you can create comments only for project you are contributor or author
 #### Optionnals features for **comment**:  
 - **GET** method:  
     <font color="red">Note : to respect <font color="green">"green coding"</font>, result of the first two requests will display minimal informations, for detailed informations, show specific comment with third request</font>  
-    - Show all comments for current user: `localhost:8000/api/comment/`  
+    - Show all comments authenticated user created: `localhost:8000/api/comment/`  
     - Show comment(s) associated to an project you are contributor or author: `localhost:8000/api/project/<int:pk>/issue/<int:pk>/comment/`  
-    - Show specific comment if authorized: `localhost:8000/api/comment/<int:pk>/`  
+    - Show specific comment if you are contributor or author: `localhost:8000/api/comment/<int:pk>/`  
 - **PATCH** method:
-    - You can modify specific comment if authorized: `localhost:8000/api/comment/<int:pk>/`  
+    - You can modify specific comment if you are contributor or author: `localhost:8000/api/comment/<int:pk>/`  
         - field you can modify : __description__
 - **DEL** method:
-    - Delete specific comment if authorized: `localhost:8000/api/comment/<int:pk>/` 
+    - Delete specific comment only if you are the author: `localhost:8000/api/comment/<int:pk>/` 
 
 ----------------------------------------------------------------------------------
