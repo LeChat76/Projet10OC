@@ -42,19 +42,19 @@ All endpoints have been tested with Postman.
     - Show specific user: `localhost:8000/api/user/<int:pk>/`
 
 ### <font color="red">RGPD rules:</font>
-- Modify `can_be_contacted` and `can_data_be_shared` and all others field with **PATCH** method: `localhost:8000/api/user/<int:pk>/`
-* mandatory body options:  
-    - `password=<password>`: to modify password (<font color="red">password is mandatory even empty because hashed in any cases</font>)
-* optionnals body options: 
-    - `username=<username>`: to modify username  
-    - `birthday=<birthday>`: to modify birthday, format dd-mm-yyyy (less than 15 years old will be rejected)  
-    - `can_be_contacted=<1 or O>` to modify 'can_be_contacted' field 
-    - `can_data_be_shared=<1 or O>`  to modify 'can_data_be_shared' field  
+- **PATCH** method: `localhost:8000/api/user/<int:pk>/`
+    * mandatory body options:  
+        - `password=<password>`: to modify password (<font color="red">password is mandatory even empty because hashed in any cases</font>)
+    * optionnals body options: 
+        - `username=<username>`: to modify username  
+        - `birthday=<birthday>`: to modify birthday, format dd-mm-yyyy (less than 15 years old will be rejected)  
+        - `can_be_contacted=<1 or O>` to modify 'can_be_contacted' field 
+        - `can_data_be_shared=<1 or O>`  to modify 'can_data_be_shared' field  
 
 
 <img alt="rgpd" src="https://github.com/LeChat76/Projet10OC/assets/119883313/1cf0bf05-38a8-4652-a24f-d78e096e13e7">   
 
-- Delete specific user with **DEL** method: `localhost:8000/api/user/<int:pk>/`  
+- **DEL** method: `localhost:8000/api/user/<int:pk>/`  
 <font color="red">RGPD rules require that a deleted user also deletes all traces of his activity SO all projects, issues and comments he has created will be deleted.</font>
 
 ----------------------------------------------------------------------------------
