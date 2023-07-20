@@ -1,0 +1,963 @@
+{
+	"info": {
+		"_postman_id": "3cd985ee-7ac4-4a7c-8951-0d8554e5f65e",
+		"name": "P10",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24811211"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "create_user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg5MTY4NTcyLCJpYXQiOjE2ODkxNjc2NzIsImp0aSI6ImNkYjE3NzMwNDVmNDRkZWM4YTA4NWFjMDJkNTliN2EwIiwidXNlcl9pZCI6NTh9.MDh9c8njZe1mUwPEoaSjHNao3QYx5rQJu70cnks-bG0",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "cedric2",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Toto1234",
+									"type": "text"
+								},
+								{
+									"key": "birthday",
+									"value": "16-07-1975",
+									"type": "text"
+								},
+								{
+									"key": "can_be_contacted",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "can_data_be_shared",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/user/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generate_token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const auth = pm.response.json();\r",
+									"pm.test('Status Code is 200', function(){\r",
+									"    pm.environment.set(\"TOKEN\", auth.access);\r",
+									"    pm.environment.set(\"REFRESH\", auth.refresh);\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"const auth2 = pm.response.json();\r",
+									"pm.test('Status Code is 200', function(){\r",
+									"    pm.globals.set(\"TOKEN\", auth2.access);\r",
+									"    pm.globals.set(\"REFRESH\", auth2.refresh);\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "cedric",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Toto1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/api/token/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list_users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "username",
+								"value": "cedric",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/user/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list_spec_user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "username",
+								"value": "cedric",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/user/95/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"95",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_spec_user",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "cedric",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "Toto1234",
+									"type": "text"
+								},
+								{
+									"key": "birthday",
+									"value": "16-07-1975",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "can_be_contacted",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "can_data_be_shared",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/api/user/95/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"95",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8000/api/user/95/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"95",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Project",
+			"item": [
+				{
+					"name": "create_project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "type",
+									"value": "backend",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Dev d'une API RestFull cedric bis",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "TEST desc Cedric",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/api/project/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"project",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list_project",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text",
+								"description": "cedric3"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/project/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"project",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list_spec_project",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text",
+								"description": "cedric3"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/project/6/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"project",
+								"6",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_spec_project",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text",
+								"description": "cedric3"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "TEST patch cedric test",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/api/project/7/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"project",
+								"7",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_project",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/project/8/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"project",
+								"8",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contributor",
+			"item": [
+				{
+					"name": "add_contributor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "project",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "user",
+									"value": "92",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/api/contributor/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"contributor",
+								""
+							],
+							"query": [
+								{
+									"key": "project",
+									"value": "20",
+									"disabled": true
+								},
+								{
+									"key": "user",
+									"value": "80",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list_contributor",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/contributor/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"contributor",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del_spec_contributor",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/contributor/78/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"contributor",
+								"78",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Issue",
+			"item": [
+				{
+					"name": "create_issue",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "priority",
+									"value": "high",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "gerer les models cedric2bisb",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "feature",
+									"type": "text"
+								},
+								{
+									"key": "project",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "TEST",
+									"type": "text"
+								},
+								{
+									"key": "statut",
+									"value": "finished",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/api/issue/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"issue",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list_issue",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/issue/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"issue",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list_spect_issue",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/issue/18/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"issue",
+								"18",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list_project/issue",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/project/3/issue/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"project",
+								"3",
+								"issue",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_spec_issue",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "test PATCH cedric",
+									"type": "text"
+								},
+								{
+									"key": "project",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/api/issue/18/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"issue",
+								"18",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del_spect_issue",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/issue/21/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"issue",
+								"21",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "create_comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "issue",
+									"value": "19",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Attention au relations entre les tables cedric2 issue 19",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/api/comment/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"comment",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list_comments",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/comment/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"comment",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list_project/issue/comment",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/comment/39/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"comment",
+								"39",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list_spec_comment",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/comment/7a6049793a6841e68bb751853b27eb76/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"comment",
+								"7a6049793a6841e68bb751853b27eb76",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_spec_comment",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "TEST patch cedric2 bis",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8000/api/comment/37/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"comment",
+								"37",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del_spec_comment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/api/comment/22/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"comment",
+								"22",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
