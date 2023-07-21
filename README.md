@@ -57,6 +57,8 @@ All endpoints have been tested with Postman.
 - **DEL** method: `localhost:8000/api/user/<int:pk>/`  
 <font color="red">RGPD rules require that a deleted user also deletes all traces of his activity SO all projects, issues and comments he has created will be deleted.</font>
 
+Note : account admin / password Toto1234 has been created to access to the webadmin page of the DRF
+
 ----------------------------------------------------------------------------------
 
 ### 2 - generate token with **POST** method: `localhost:8000/api/token/`
