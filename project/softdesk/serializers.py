@@ -48,10 +48,8 @@ class IssueListSerializer(ModelSerializer):
 
 class IssueDetailSerializer(ModelSerializer):
 
-    user = serializers.IntegerField(write_only=True)
+    user = serializers.IntegerField(read_only=True)
 
-    print('USER', user)
-    
     class Meta:
         model = Issue
         fields = [
