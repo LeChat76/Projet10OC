@@ -8,8 +8,6 @@ from .serializers import UserDetailSerializer, UserListSerializer
 
 class UserViewset(ModelViewSet):
 
-    serializer_class = UserDetailSerializer
-
     def get_queryset(self):
         return Users.objects.filter(is_superuser='0')
 
