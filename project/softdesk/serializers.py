@@ -48,7 +48,7 @@ class IssueListSerializer(ModelSerializer):
 
 class IssueDetailSerializer(ModelSerializer):
 
-    user = serializers.IntegerField(default=serializers.CurrentUserDefault(), write_only=True)
+    user = serializers.IntegerField(write_only=True)
     
     class Meta:
         model = Issue
