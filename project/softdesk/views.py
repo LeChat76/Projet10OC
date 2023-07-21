@@ -94,7 +94,7 @@ class IssueViewset(ModelViewSet):
 
     def create(self, request, project_pk=None, *args, **kwargs):
             data = request.data
-            issue = Issue.objects.create(title=data['title'], description=data['description'], tag=data['tag'], priority=data['priority'], project_id=project_pk, status=data['status'], author_user_id=request.user.id, assignee_user_id=data['assignee_user'])
+            issue = Issue.objects.create(project=data['project'], title=data['title'], description=data['description'], priority=data['priority'], project_id=project_pk, status=data['status'], user_id=request.user.id)
             issue.save()
             serializer = IssueDetailSerializer(issue)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
