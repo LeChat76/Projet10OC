@@ -49,6 +49,8 @@ class IssueListSerializer(ModelSerializer):
 class IssueDetailSerializer(ModelSerializer):
 
     user = serializers.IntegerField(write_only=True)
+
+    print('USER', user)
     
     class Meta:
         model = Issue
