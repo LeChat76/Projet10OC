@@ -12,7 +12,7 @@ API creation with __Django Rest Framework__
 * Create virtual environment: `python -m venv .venv`  
 * Activate environment:  
     * for Linux `source .venv/bin/activate`  
-    * for Windows `.\\.venv\Scripts\activate`  
+    * for Windows `.\.venv\Scripts\activate`  
 * Install the necessary libraries: `pip install -r requirements.txt`  
 * Go in the folder of the projet: `cd project`  
 * And run the webserver: `python manage.py runserver`  
