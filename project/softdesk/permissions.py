@@ -32,30 +32,46 @@ class isContributorAuthorized(BasePermission):
                 (int(user_to_add) != int(current_user.id))
             )
         
-        return True
+        return False
 
     def has_object_permission(self, request, view, obj):
         user = request.user
-        contributor_id = view.kwargs['pk']
         projects = Project.objects.filter(user=user)
         if request.method == 'DELETE':
-            print('TOP')
+            # print('TOP')
             return bool(Contributor.objects.filter(project__in=projects).exists())
-        
+
+class isProjectContributorAuthorized(BasePermission):
+
+    def has_permission(self, request, view):
+        if request.method == 'GET':
+            user = request.user
+            project_id = view.kwargs['project_pk']
+            print('PROJECT_ID', project_id)
+            if Project.objects.filter(user=user, id=project_id):
+                return True
+
 class IsIssueAuthorized(BasePermission):
 
     def has_permission(self, request, view):
         if request.method == 'POST':
             user=request.user
+            assigned_user_id = request.data.get('assigned_user')
+            if not assigned_user_id:
+                assigned_user_id = user
+            else:
+                user = assigned_user_id
             project_id = request.data.get('project')
-            if Project.objects.filter(id=project_id).exists():
+            print('USER', user)
+            if Project.objects.filter(user=request.user, id=project_id) or Contributor.objects.filter(project_id=project_id, user=user):
                 return bool(
                     # check if authenticated user is contributor of this project
                     Contributor.objects.filter(project_id=project_id, user=user).exists() or 
                     # otherwise if authenticated user is project's author
-                    Project.objects.filter(id=project_id, user=request.user).exists()
-            )
-
+                    Project.objects.filter(id=project_id, user=user).exists()
+                )
+            else:
+                return False
         return True
 
     def has_object_permission(self, request, view, obj):
@@ -68,10 +84,18 @@ class IsIssueAuthorized(BasePermission):
                 # otherwise if authenticated user is project's author
                 Project.objects.filter(id=project_id, user=user).exists()
             )
-        elif request.method in ['DELETE', 'PATCH']:
-            issue_id = view.kwargs['pk']
-            return bool(Issue.objects.filter(user=user, id=issue_id).exists())
-
+        elif request.method in ['DELETE']:
+            issue_id = obj.id
+            return bool(Issue.objects.filter(user=user, id=issue_id))
+        
+        elif request.method in ['PATCH']:
+            issue_id = obj.id
+            # only assigned user can just modify statut field of an issue
+            if Issue.objects.filter(assigned_user=user, id=issue_id):
+                 return True
+            else:
+                return False
+            
 class IsCommentAuthorized(BasePermission):
 
     def has_permission(self, request, view):

@@ -19,25 +19,17 @@ class ProjectDetailSerializer(ModelSerializer):
 
     class Meta:
         model = Project
-        fields = [
-            'id',
-            'user',
-            'type',
-            'title',
-            'description',
-        ]
+        fields = '__all__'
 
 class ContributorSerializer(ModelSerializer):
- 
+
     class Meta:
         model = Contributor
-        fields = [
-            'id',
-            'project',
-            'user',
-        ]
+        fields = '__all__'
 
 class IssueListSerializer(ModelSerializer):
+
+    # user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Issue
@@ -48,18 +40,18 @@ class IssueListSerializer(ModelSerializer):
 
 class IssueDetailSerializer(ModelSerializer):
 
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    
+    def create(self, validated_data):
+        assigned_user = validated_data.get('assigned_user')
+        if not assigned_user:
+            validated_data['assigned_user'] = self.context['request'].user
+        instance = Issue.objects.create(**validated_data)
+        return instance
+
     class Meta:
         model = Issue
-        fields = [
-            'id',
-            'title',
-            'description',
-            'type',
-            'priority',
-            'statut',
-            'user',
-            'project',
-        ]
+        fields = '__all__'
 
 class CommentListSerializer(ModelSerializer):
 
@@ -76,9 +68,4 @@ class CommentDetailSerializer(ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = [
-            'id',
-            'user',
-            'issue',
-            'description',
-        ]
+        fields = '__all__'

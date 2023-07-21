@@ -121,21 +121,21 @@ Note : you can create issues only for project you are contributor or author
     - `title=<title>`: title of this issue(100 characters max)  
     - `type=<bug, feature, task>`: type of issue  
     - `project=<project_id>`: project ID  
+    - `assigned_user=<user_id>`: user id of the user to assign this issue, if not provided, default = authenticated user
 * optionnal body options:  
     - `description=<description>`: description of the project(500 characters max)  
     - `statut=<todo, inprogress, finished>`: statut of the issue(default= todo )  
 
-<img alt="create_issue" src="https://github.com/LeChat76/Projet10OC/assets/119883313/b9e18196-ed9f-47d3-bff4-a874ae741c31">
+<img alt="create_issue" src="">
 
 #### Optionnals features for **issue**:  
 - **GET** method:  
     <font color="red">Note : to respect <font color="green">"green coding"</font>, result of the first two requests will display minimal informations, for detailed informations, show specific issue with third request</font>  
-    - Show all issues authenticated user created: `localhost:8000/api/issue/`  
     - Show issue(s) associated to an project you are contributor or author: `localhost:8000/api/project/<int:pk>/issue/`  
     - Show specific issue if you are contributor or author: `localhost:8000/api/issue/<int:pk>/`  
 - **PATCH** method:
-    - You can modify specific issue only if you are author: `localhost:8000/api/issue/<int:pk>/` 
-        - field you can modify : __priority__, __title__, __description__, __type__ and __statut__
+    - You can modify specific issue only if the issue is assigned to you: `localhost:8000/api/issue/<int:pk>/` 
+        - field you can modify : __statut__=<todo, inprogress, finished>
 - **DEL** method:
     - You can delete specific issue only if you are the author: `localhost:8000/api/issue/<int:pk>/` 
 
@@ -152,7 +152,6 @@ Note : you can create comments only for project you are contributor or author
 #### Optionnals features for **comment**:  
 - **GET** method:  
     <font color="red">Note : to respect <font color="green">"green coding"</font>, result of the first two requests will display minimal informations, for detailed informations, show specific comment with third request</font>  
-    - Show all comments authenticated user created: `localhost:8000/api/comment/`  
     - Show comment(s) associated to an project you are contributor or author: `localhost:8000/api/project/<int:pk>/issue/<int:pk>/comment/`  
     - Show specific comment if you are contributor or author: `localhost:8000/api/comment/<int:pk>/`  
 - **PATCH** method:

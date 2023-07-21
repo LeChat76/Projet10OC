@@ -8,7 +8,7 @@ from .serializers import ProjectListSerializer, ProjectDetailSerializer
 from .serializers import ContributorSerializer
 from .serializers import IssueListSerializer, IssueDetailSerializer
 from .serializers import CommentListSerializer, CommentDetailSerializer
-from .permissions import IsIssueAuthorized, isContributorAuthorized, IsCommentAuthorized, IsProjectIssueCommentAuthorized, IsProjectAuthorized
+from .permissions import IsIssueAuthorized, isContributorAuthorized, isProjectContributorAuthorized, IsCommentAuthorized, IsProjectIssueCommentAuthorized, IsProjectAuthorized
 
 
 class ContributorViewset(ModelViewSet):
@@ -17,11 +17,24 @@ class ContributorViewset(ModelViewSet):
     serializer_class = ContributorSerializer
 
     def get_queryset(self):
-        # display list of contributors of my projects
-        user = self.request.user
-        projects = Project.objects.filter(user=user)
-        # print('PROJECT_ID', projects)
-        return Contributor.objects.filter(project__in=projects)
+        # user = self.request.user
+        project_id = self.kwargs['pk']
+        print('PROJECT_ID', project_id)
+        contributors_list = Contributor.objects.filter(id=project_id)
+        return contributors_list
+
+class ProjectContributorViewset(ModelViewSet):
+
+    permission_classes = [IsAuthenticated, isProjectContributorAuthorized]
+    serializer_class = ContributorSerializer
+
+    def get_queryset(self):
+        # user = self.request.user
+        project_id = self.kwargs['project_pk']
+        contributors_list = Contributor.objects.filter(project=project_id)
+        return contributors_list
+
+
 
 class ProjectViewset(ModelViewSet):
      
@@ -84,7 +97,6 @@ class IssueViewset(ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        # print('USER', user)
         try: 
             issue_id = self.kwargs['pk']
         except:
@@ -92,20 +104,20 @@ class IssueViewset(ModelViewSet):
         
         return Issue.objects.filter(id=issue_id)
 
-    def create(self, request, project_pk=None, *args, **kwargs):
-            data = request.data
-            issue = Issue.objects.create(project=data['project'], title=data['title'], description=data['description'], priority=data['priority'], project_id=project_pk, status=data['statut'], user_id=request.user.id)
-            issue.save()
-            serializer = IssueDetailSerializer(issue)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-    
     def get_serializer_class(self):
         if self.action == 'list':
             return IssueListSerializer
         else:
             return IssueDetailSerializer
+    
+    def partial_update(self, request, *args, **kwargs):
+        # overload of this method because only statut is authorized to be updated
+        instance = self.get_object()
+        data = {'statut': request.data.get('statut')}
+        serializer = self.get_serializer(instance, data=data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
 
 class CommentViewset(ModelViewSet):
     

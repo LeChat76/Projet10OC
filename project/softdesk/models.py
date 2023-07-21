@@ -47,10 +47,18 @@ class Issue(models.Model):
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
+        related_name='issues_author'
     )
     project = models.ForeignKey(
         Project,
         on_delete=models.CASCADE,
+        related_name='issues'
+    )
+    assigned_user = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='issues_assigned',
+        null=True,
     )
     TYPES_PRIORITY = (
         ('low', 'Low'),
