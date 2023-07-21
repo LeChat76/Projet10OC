@@ -1,6 +1,7 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
+from rest_framework.status import status
 
 from .models import Contributor, Project, Issue, Comment
 from .serializers import ProjectListSerializer, ProjectDetailSerializer
@@ -90,6 +91,14 @@ class IssueViewset(ModelViewSet):
             return Issue.objects.filter(user=user)
         
         return Issue.objects.filter(id=issue_id)
+
+    def create(self, request, project_pk=None, *args, **kwargs):
+            data = request.data
+            issue = Issue.objects.create(title=data['title'], description=data['description'], tag=data['tag'], priority=data['priority'], project_id=project_pk, status=data['status'], author_user_id=request.user.id, assignee_user_id=data['assignee_user'])
+            issue.save()
+            serializer = IssueDetailSerializer(issue)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
     
     def get_serializer_class(self):
