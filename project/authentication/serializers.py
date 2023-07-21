@@ -6,7 +6,16 @@ from .constantes import MIN_AGE
 from authentication.models import Users
 
 
-class UserSerializer(ModelSerializer):
+class UserListSerializer(ModelSerializer):
+
+    class Meta:
+        model = Users
+        fields = [
+            'id',
+            'username',
+        ]
+
+class UserDetailSerializer(ModelSerializer):
  
     password = serializers.CharField(write_only=True)
     birthday = serializers.DateField(format='%d-%m-%Y')

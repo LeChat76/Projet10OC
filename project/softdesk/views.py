@@ -97,7 +97,7 @@ class IssueViewset(ModelViewSet):
             return IssueListSerializer
         else:
             return IssueDetailSerializer
-        
+
 class CommentViewset(ModelViewSet):
     
     permission_classes = [IsAuthenticated, IsCommentAuthorized]

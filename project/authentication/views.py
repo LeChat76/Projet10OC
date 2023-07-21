@@ -3,12 +3,12 @@ from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 
 from .models import Users
-from .serializers import UserSerializer
+from .serializers import UserDetailSerializer, UserListSerializer
 
 
 class UserViewset(ModelViewSet):
 
-    serializer_class = UserSerializer
+    serializer_class = UserDetailSerializer
 
     def get_queryset(self):
         return Users.objects.filter(is_superuser='0')
@@ -27,3 +27,9 @@ class UserViewset(ModelViewSet):
         user_data = serializer.data
 
         return Response(user_data)
+    
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return UserListSerializer
+        else:
+            return UserDetailSerializer
