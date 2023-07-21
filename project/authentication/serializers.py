@@ -19,6 +19,7 @@ class UserDetailSerializer(ModelSerializer):
  
     password = serializers.CharField(write_only=True)
     birthday = serializers.DateField(format='%d-%m-%Y')
+    date_joined = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S', required=False)
 
     class Meta:
         model = Users
@@ -27,6 +28,7 @@ class UserDetailSerializer(ModelSerializer):
             'username',
             'birthday',
             'password',
+            'date_joined',
             'can_be_contacted',
             'can_data_be_shared',
         ]

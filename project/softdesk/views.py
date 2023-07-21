@@ -19,7 +19,7 @@ class ContributorViewset(ModelViewSet):
     def get_queryset(self):
         # user = self.request.user
         project_id = self.kwargs['pk']
-        print('PROJECT_ID', project_id)
+        # print('PROJECT_ID', project_id)
         contributors_list = Contributor.objects.filter(id=project_id)
         return contributors_list
 
@@ -127,12 +127,11 @@ class CommentViewset(ModelViewSet):
         user=self.request.user
         try:
             comment_id = self.kwargs['pk']
-            print('COMMENT_ID', comment_id)
+            # print('COMMENT_ID', comment_id)
         except:
             return Comment.objects.filter(user=user)
 
         return Comment.objects.filter(id=comment_id) 
-
 
     def get_serializer_class(self):
         if self.action == 'list':

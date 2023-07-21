@@ -108,9 +108,9 @@ because already authorized on its own projects.
 
 #### Optionnals features for **contributor**:  
 - **GET** method:
-    - Show all contributors for all projects you are author: `localhost:8000/api/contributor/`
+    - Show all contributors for specific project if you are the author: `localhost:8000/api/project/<int:pk>/contributor/`
 - **DEL** method:
-    - You can delete specific contributor: `localhost:8000/api/contributor/<int:pk>/` 
+    - You can delete specific contributor if author of the associated project: `localhost:8000/api/contributor/<int:pk>/` 
 
 ----------------------------------------------------------------------------------
 
@@ -121,7 +121,7 @@ Note : you can create issues only for project you are contributor or author
     - `title=<title>`: title of this issue(100 characters max)  
     - `type=<bug, feature, task>`: type of issue  
     - `project=<project_id>`: project ID  
-    - `assigned_user=<user_id>`: user id of the user to assign this issue, if not provided, default = authenticated user
+    - `assigned_user=<user_id>`: user id of the user to assign this issue (default=authenticated user)
 * optionnal body options:  
     - `description=<description>`: description of the project(500 characters max)  
     - `statut=<todo, inprogress, finished>`: statut of the issue(default= todo )  
@@ -132,12 +132,12 @@ Note : you can create issues only for project you are contributor or author
 - **GET** method:  
     <font color="red">Note : to respect <font color="green">"green coding"</font>, result of the first two requests will display minimal informations, for detailed informations, show specific issue with third request</font>  
     - Show issue(s) associated to an project you are contributor or author: `localhost:8000/api/project/<int:pk>/issue/`  
-    - Show specific issue if you are contributor or author: `localhost:8000/api/issue/<int:pk>/`  
+    - Show specific issue if you are contributor or author of the associated project: `localhost:8000/api/issue/<int:pk>/`  
 - **PATCH** method:
     - You can modify specific issue only if the issue is assigned to you: `localhost:8000/api/issue/<int:pk>/` 
         - field you can modify : __statut__=<todo, inprogress, finished>
 - **DEL** method:
-    - You can delete specific issue only if you are the author: `localhost:8000/api/issue/<int:pk>/` 
+    - You can delete specific issue only if you are the author of the issue: `localhost:8000/api/issue/<int:pk>/` 
 
 ----------------------------------------------------------------------------------
 
@@ -153,7 +153,7 @@ Note : you can create comments only for project you are contributor or author
 - **GET** method:  
     <font color="red">Note : to respect <font color="green">"green coding"</font>, result of the first two requests will display minimal informations, for detailed informations, show specific comment with third request</font>  
     - Show comment(s) associated to an project you are contributor or author: `localhost:8000/api/project/<int:pk>/issue/<int:pk>/comment/`  
-    - Show specific comment if you are contributor or author: `localhost:8000/api/comment/<int:pk>/`  
+    - Show specific comment if you are contributor or author of the associated project: `localhost:8000/api/comment/<int:pk>/`  
 - **PATCH** method:
     - You can modify specific comment only if you are author: `localhost:8000/api/comment/<int:pk>/`  
         - field you can modify : __description__
