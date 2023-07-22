@@ -9,7 +9,8 @@ class Project(models.Model):
         return f'{self.title}'
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
     )
     TYPES_PROJECT = (
         ('backend', 'Back-end'),
@@ -29,11 +30,13 @@ class Contributor(models.Model):
     
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
     )
     project = models.ForeignKey(
         to=Project,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
     )
     created_time = models.DateTimeField(default=timezone.now)
     class Meta:
@@ -46,17 +49,19 @@ class Issue(models.Model):
     
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
         related_name='issues_author'
     )
     project = models.ForeignKey(
         Project,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
         related_name='issues'
     )
     assigned_user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name='issues_assigned',
         null=True,
     )
@@ -89,13 +94,16 @@ class Comment(models.Model):
     description = models.CharField(max_length=500)
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
     )
     issue = models.ForeignKey(
         Issue,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
     )
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    id = models.AutoField(primary_key=True)
     created_time = models.DateTimeField(default=timezone.now)
 
     # class Meta:

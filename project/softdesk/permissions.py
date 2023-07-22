@@ -112,11 +112,16 @@ class IsCommentAuthorized(BasePermission):
     def has_object_permission(self, request, view, obj):
         user = request.user
         issue_id = obj.id
-        if request.method in ['GET', 'PATCH']:
+        if request.method in ['PATCH', 'DELETE']:
             return bool(Comment.objects.filter(user=user, id=issue_id))
-
-        elif request.method == 'DELETE':
-            return bool(Comment.objects.filter(user=user, id=issue_id))
+        
+        elif request.method in ['GET']:
+            print('TOP2')
+            project_id = Issue.objects.filter(id=issue_id).values('project').first()['project']
+            return bool(
+                Comment.objects.filter(user=user, id=issue_id) or 
+                Contributor.objects.filter(user=user, project=project_id)
+            )
 
 class IsProjectIssueCommentAuthorized(BasePermission):
     
