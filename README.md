@@ -80,7 +80,7 @@ Note : account admin / password Toto1234 has been created to access to the webad
 
 Note : for better project management, identical titles are refused
 
-<img alt="create_project" src="https://github.com/LeChat76/Projet10OC/assets/119883313/3380790e-9632-4610-b98b-87b640541fce">
+<img alt="create_project" src="https://github.com/LeChat76/Projet10OC/assets/119883313/d321fee1-bb98-430a-9dd7-4d2edc52b45b">
 
 #### Optionnals features for **project**:
 - **GET** method:
@@ -101,7 +101,7 @@ You can add contributor for specific user and project:
     - `project=<project:pk>`: pk of the project to which to add a user  
     - `user=<user:pk>`: pk of the user to add to the project  
 
-<img alt="create_issue" src="https://github.com/LeChat76/Projet10OC/assets/119883313/f8b641ec-5a6a-47ce-a1ae-9576195e72f9">
+<img alt="create_issue" src="https://github.com/LeChat76/Projet10OC/assets/119883313/22e71067-d9cc-4b7d-8f73-3411e583daac">
 
 Note : for security reason, only author of projects can add users its projects. And author can not add himself
 because already authorized on its own projects.
@@ -126,7 +126,7 @@ Note : you can create issues only for project you are contributor or author
     - `description=<description>`: description of the project(500 characters max)  
     - `statut=<todo, inprogress, finished>`: statut of the issue(default= todo )  
 
-<img alt="create_issue" src="">
+<img alt="create_issue" src="https://github.com/LeChat76/Projet10OC/assets/119883313/27be523b-ef15-44bb-b2e5-be081f95d37c">
 
 #### Optionnals features for **issue**:  
 - **GET** method:  
@@ -147,7 +147,7 @@ Note : you can create comments only for project you are contributor or author
     - `issue=<issue_id>`: issue ID to associate comment with
     - `description=<description>`: description of the project(500 characters max)
 
-<img alt="create_comment" src="https://github.com/LeChat76/Projet10OC/assets/119883313/cc81f63e-0e38-49ef-b7ae-e0720c22f7ac">
+<img alt="create_comment" src="https://github.com/LeChat76/Projet10OC/assets/119883313/28f35951-bf20-4af8-8ad8-3592ad52748d">
 
 #### Optionnals features for **comment**:  
 - **GET** method:  

@@ -9,9 +9,7 @@ class IsProjectAuthorized(BasePermission):
 
     def has_object_permission(self, request, view, obj):
         user = request.user
-        # print('USER', user)
         project_id = obj.id
-        # print('PROJECT_ID', project_id)
         if request.method == 'GET':
             return bool(
                 Project.objects.filter(id=project_id, user=user).exists() or 
@@ -36,9 +34,7 @@ class isContributorAuthorized(BasePermission):
 
     def has_object_permission(self, request, view, obj):
         user = request.user.id
-        print('USER', user)
         project_id = obj.project_id
-        print('PROJECT_ID', project_id)
         if request.method == 'DELETE':
             if Project.objects.filter(user=user, id=project_id):
                 return True
@@ -49,7 +45,6 @@ class isProjectContributorAuthorized(BasePermission):
         if request.method == 'GET':
             user = request.user
             project_id = view.kwargs['project_pk']
-            print('PROJECT_ID', project_id)
             if Project.objects.filter(user=user, id=project_id):
                 return True
 
@@ -64,7 +59,6 @@ class IsIssueAuthorized(BasePermission):
             else:
                 user = assigned_user_id
             project_id = request.data.get('project')
-            print('USER', user)
             if Project.objects.filter(user=request.user, id=project_id) or Contributor.objects.filter(project_id=project_id, user=user):
                 return bool(
                     # check if authenticated user is contributor of this project
@@ -103,12 +97,10 @@ class IsCommentAuthorized(BasePermission):
     def has_permission(self, request, view):
         if request.method in ['POST', 'GET']:
             user=request.user
-            # print('USER_PERM', user)
             issue_id = request.data.get('issue')
-            # print('ISSUE_ID_PERM', issue_id)
+            # check if issue exists
             if Issue.objects.filter(id=issue_id):
                 project_id = Issue.objects.filter(id=issue_id).values('project').first()['project']
-                # print('PROJECT_ID_PERM', project_id)
                 return bool(
                     # check if authenticated user is contributor of this project
                     Contributor.objects.filter(project=project_id, user=user).exists() or 
@@ -119,9 +111,7 @@ class IsCommentAuthorized(BasePermission):
     
     def has_object_permission(self, request, view, obj):
         user = request.user
-        # print('USER', user.id)
         issue_id = obj.id
-        # print('ISSUE_ID', issue_id)
         if request.method in ['GET', 'PATCH']:
             return bool(Comment.objects.filter(user=user, id=issue_id))
 

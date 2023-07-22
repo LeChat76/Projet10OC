@@ -98,5 +98,5 @@ class Comment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_time = models.DateTimeField(default=timezone.now)
 
-    class Meta:
-        unique_together = ('user', 'description')
+    # class Meta:
+    #     unique_together = ('user', 'description')

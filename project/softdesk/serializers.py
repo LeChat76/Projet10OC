@@ -24,6 +24,8 @@ class ProjectDetailSerializer(ModelSerializer):
 
 class ContributorSerializer(ModelSerializer):
 
+    created_time = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S', required=False)
+
     class Meta:
         model = Contributor
         fields = '__all__'
@@ -43,6 +45,7 @@ class IssueDetailSerializer(ModelSerializer):
     created_time = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S', required=False)
 
     def create(self, validated_data):
+        # if no assigned_user provided for the issue : default is the authenticated user
         assigned_user = validated_data.get('assigned_user')
         if not assigned_user:
             validated_data['assigned_user'] = self.context['request'].user

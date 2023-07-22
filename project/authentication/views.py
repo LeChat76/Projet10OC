@@ -19,11 +19,8 @@ class UserViewset(ModelViewSet):
         # check if password is provided
         if 'password' not in serializer.validated_data:
             raise ValidationError("Le mot de passe est obligatoire.")
-
         self.perform_update(serializer)
-
         user_data = serializer.data
-
         return Response(user_data)
     
     def get_serializer_class(self):
