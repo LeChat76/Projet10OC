@@ -55,7 +55,7 @@ All endpoints have been tested with Postman.
 <img alt="rgpd" src="https://github.com/LeChat76/Projet10OC/assets/119883313/1cf0bf05-38a8-4652-a24f-d78e096e13e7">   
 
 - **DEL** method: `localhost:8000/api/user/<int:pk>/`  
-<font color="red">RGPD rules require that a deleted user also deletes all traces of his activity SO all projects, issues and comments he has created will be deleted.</font>
+<font color="red">RGPD rules require that account deleted is fully destroyed. But all records created (project, issue, comments and access right in contributor) keep in database to allow users to continue to work with.</font>
 
 Note : account admin / password Toto1234 has been created to access to the webadmin page of the DRF
 
