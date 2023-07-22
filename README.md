@@ -161,3 +161,7 @@ Note : you can create comments only for project you are contributor or author
     - Delete specific comment only if you are the author: `localhost:8000/api/comment/<int:pk>/` 
 
 ----------------------------------------------------------------------------------
+
+### - Diagram
+
+<img alt="create_comment" src="https://github.com/LeChat76/Projet10OC/assets/119883313/62de1ec3-800d-46ab-a6a0-02f03844319e">
