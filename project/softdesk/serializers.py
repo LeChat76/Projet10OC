@@ -16,6 +16,7 @@ class ProjectListSerializer(ModelSerializer):
 class ProjectDetailSerializer(ModelSerializer):
     
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    username = serializers.ReadOnlyField(source='user.username')
     created_time = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S', required=False)
 
     class Meta:
@@ -42,6 +43,7 @@ class IssueListSerializer(ModelSerializer):
 class IssueDetailSerializer(ModelSerializer):
 
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    username = serializers.ReadOnlyField(source='user.username')
     created_time = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S', required=False)
 
     def create(self, validated_data):
@@ -68,6 +70,7 @@ class CommentListSerializer(ModelSerializer):
 class CommentDetailSerializer(ModelSerializer):
 
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    username = serializers.ReadOnlyField(source='user.username')
     created_time = serializers.DateTimeField(format='%Y-%m-%d %H:%M:%S', required=False)
 
     class Meta:
