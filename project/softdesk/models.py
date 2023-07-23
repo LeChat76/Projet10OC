@@ -35,8 +35,7 @@ class Contributor(models.Model):
     )
     project = models.ForeignKey(
         to=Project,
-        on_delete=models.SET_NULL,
-        null=True,
+        on_delete=models.CASCADE,
     )
     created_time = models.DateTimeField(default=timezone.now)
     class Meta:
@@ -55,8 +54,7 @@ class Issue(models.Model):
     )
     project = models.ForeignKey(
         Project,
-        on_delete=models.SET_NULL,
-        null=True,
+        on_delete=models.CASCADE,
         related_name='issues'
     )
     assigned_user = models.ForeignKey(
@@ -99,8 +97,7 @@ class Comment(models.Model):
     )
     issue = models.ForeignKey(
         Issue,
-        on_delete=models.SET_NULL,
-        null=True,
+        on_delete=models.CASCADE,
     )
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     id = models.AutoField(primary_key=True)

@@ -89,6 +89,7 @@ Note : for better project management, identical titles are refused
     - Show specific project if author or contributor: `localhost:8000/api/project/<int:pk>/`  
 - **DEL** method (when deleting project, delation of record in contributor table by cascade):  
     - Delete specific project if author: `localhost:8000/api/project/<int:pk>/`  
+    Note : delete a project will delete all issues and comments associated to
 - **PATCH** method:  
     - modify specific project if author: `localhost:8000/api/project/<int:pk>/`  
         - field you can modify : __description__, __title__ and __type__  
@@ -138,6 +139,7 @@ Note : you can create issues only for project you are contributor or author
         - field you can modify : __statut__=<todo, inprogress, finished>
 - **DEL** method:
     - You can delete specific issue only if you are the author of the issue: `localhost:8000/api/issue/<int:pk>/` 
+    Note : delete an issue will delete comments associated to
 
 ----------------------------------------------------------------------------------
 
